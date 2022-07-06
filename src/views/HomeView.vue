@@ -1,18 +1,22 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <h1>Hola mundo</h1>
+    <div>
+      <b-alert show variant="primary">Primary Alert</b-alert>
+      <b-alert show variant="secondary">Secondary Alert</b-alert>
+      <b-alert show variant="success">Success Alert</b-alert>
+      <b-alert show variant="danger">Danger Alert</b-alert>
+      <b-alert show variant="warning">Warning Alert</b-alert>
+      <b-alert show variant="info">Info Alert</b-alert>
+      <b-alert show variant="light">Light Alert</b-alert>
+      <b-alert show variant="dark">Dark Alert</b-alert>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
 export default {
   name: "HomeView",
-  components: {
-    HelloWorld,
-  },
+  components: {},
 };
 </script>
