@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/LoginView.vue";
+import RegisterView from "../views/RegisterView.vue";
 import Store from "@/store/";
 
 Vue.use(VueRouter);
@@ -19,6 +20,14 @@ const routes = [
     path: "/login",
     name: "login",
     component: LoginView,
+    meta: {
+      accessLevel: "public",
+    },
+  },
+  {
+    path: "/register",
+    name: "register",
+    component: RegisterView,
     meta: {
       accessLevel: "public",
     },

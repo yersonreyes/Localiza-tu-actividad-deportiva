@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home container">
     <h1>Hola mundo</h1>
     <div>
       <b-alert show variant="primary">Primary Alert</b-alert>
