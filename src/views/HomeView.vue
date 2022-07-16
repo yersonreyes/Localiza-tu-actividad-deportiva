@@ -1,15 +1,17 @@
 <template>
-  <!-- Tarjetas con los eventos -->
   <div>
-    <div class="container fluid">
-      <h3 class="eventsCards-Title my-5">Clases cerca de ti</h3>
-      <div class="row row-cols-1 row-cols-md-3 gx-4">
-        <div
-          class="col col-xl-3 col-lg-4 col-md-6 col-sm-12"
-          v-for="(event, index) in events"
-          :key="index"
-        >
-          <EventsCards :event="event" />
+    <!-- Tarjetas con los eventos -->
+    <div>
+      <div class="container fluid">
+        <h3 class="eventsCards-Title my-5">Clases cerca de ti</h3>
+        <div class="row row-cols-1 row-cols-md-3 gx-4">
+          <div
+            class="col col-xl-3 col-lg-4 col-md-6 col-sm-12"
+            v-for="(event, index) in events"
+            :key="index"
+          >
+            <EventsCards :event="event" />
+          </div>
         </div>
       </div>
     </div>

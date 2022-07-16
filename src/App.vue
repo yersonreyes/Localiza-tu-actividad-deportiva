@@ -1,28 +1,24 @@
 <template>
   <div id="app">
+    <NavBarComponent />
     <router-view />
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import NavBarComponent from "@/components/NavBarComponent.vue";
+export default {
+  components: { NavBarComponent },
 
-nav {
-  padding: 30px;
+  mounted() {
+    this.$store.dispatch("session/subscribeToAuthStateChange");
+  },
+};
+</script>
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+<style>
+:root {
+  --basefontFamily: "Inter", sans-serif;
+  --basefontFamily2: "Open Sans", sans-serif;
 }
 </style>
