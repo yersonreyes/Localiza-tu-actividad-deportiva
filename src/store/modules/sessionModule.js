@@ -1,4 +1,5 @@
-import Firebase from "firebase/app";
+import { getAuth, signOut, signInWithEmailAndPassword } from "firebase/auth";
+import Router from "@/router";
 
 export const sessionModule = {
   namespaced: true,
@@ -9,10 +10,6 @@ export const sessionModule = {
   getters: {
     activeLogin(state) {
       return !!state.user;
-    },
-
-    correo(state) {
-      return state.user.user.email;
     },
   },
   mutations: {
@@ -25,51 +22,34 @@ export const sessionModule = {
   },
   actions: {
     async subscribeToAuthStateChange({ commit }) {
-      Firebase.auth().onAuthStateChanged((user) => {
+      const auth = getAuth();
+      auth.onAuthStateChanged((user) => {
         commit("SET_USER", user);
+        if (user) Router.push("/");
       });
     },
-
     async signInWithEmailAndPassword({ commit }, credentials) {
       commit("SET_LOADING", true);
       try {
-        const user = await Firebase.auth().signInWithEmailAndPassword(
+        const auth = getAuth();
+        await signInWithEmailAndPassword(
+          auth,
           credentials.email,
           credentials.password
         );
-        commit("SET_USER", user);
       } catch (e) {
-        console.error("La mansa embarraita", e);
+        console.error("falló al intentar autenticarse", e);
       } finally {
         commit("SET_LOADING", false);
+        Router.push("/");
       }
     },
 
-    async createUserWithEmailAndPassword({ commit }, newUser) {
-      commit("SET_LOADING", true);
-
-      try {
-        await Firebase.auth().createUserWithEmailAndPassword(
-          newUser.email,
-          newUser.password
-        );
-      } catch (error) {
-        console.error(error);
-      } finally {
-        commit("SET_LOADING", false);
-      }
-    },
-
-    async signOut({ commit }) {
-      commit("SET_LOADING", true);
-      try {
-        await Firebase.auth().signOut();
-        commit("SET_USER", false);
-      } catch (e) {
-        console.error("otra embarraita mas, me perd0n as¿", e);
-      } finally {
-        commit("SET_LOADING", false);
-      }
+    async signOut() {
+      const auth = getAuth();
+      await signOut(auth).then(() => {
+        this.$router.push("/login");
+      });
     },
   },
 };

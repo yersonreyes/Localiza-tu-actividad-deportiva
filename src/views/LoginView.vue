@@ -1,6 +1,5 @@
 <template>
-  <div class="container">
-    <h1>login view</h1>
+  <div class="login-view">
     <LoginComponent />
   </div>
 </template>
@@ -14,4 +13,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.login-view {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>

@@ -9,6 +9,7 @@
 import NavBarComponent from "@/components/NavBarComponent.vue";
 export default {
   components: { NavBarComponent },
+
   mounted() {
     this.$store.dispatch("session/subscribeToAuthStateChange");
   },

@@ -44,7 +44,9 @@
               </template>
               <b-dropdown-item href="#">Profile</b-dropdown-item>
               <b-dropdown-item href="#">Publicar</b-dropdown-item>
-              <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+              <b-dropdown-item @click="closeSesion" href="#"
+                >Sign Out</b-dropdown-item
+              >
             </b-nav-item-dropdown>
           </b-navbar-nav>
         </b-collapse>
@@ -58,8 +60,8 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   methods: {
     ...mapActions("session", ["signOut"]),
-    async cerrarSesion() {
-      await this.signOut(), this.$router.push(`/login`);
+    async closeSesion() {
+      await this.signOut();
     },
     pushLogin() {
       this.$router.push(`/login`);
@@ -74,7 +76,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters("session", ["activeLogin", "correo"]),
+    ...mapGetters("session", ["activeLogin"]),
   },
 };
 </script>
