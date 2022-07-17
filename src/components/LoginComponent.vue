@@ -35,6 +35,9 @@
       >
       <b-button type="submit" variant="primary">Ingresar</b-button>
     </b-form>
+    <b-alert class="mt-3" v-if="activeError" show variant="danger"
+      >Email o contraseña no son validos</b-alert
+    >
     <p class="register-p">
       ¿Aún no tienes cuenta?
       <router-link class="register" to="/register">Registrarse</router-link>
@@ -43,7 +46,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -60,6 +63,9 @@ export default {
       await this.signInWithEmailAndPassword(this.form);
       await this.getUser();
     },
+  },
+  computed: {
+    ...mapGetters("session", ["activeError"]),
   },
 };
 </script>

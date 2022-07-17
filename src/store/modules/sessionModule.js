@@ -14,10 +14,15 @@ export const sessionModule = {
       lastName: "",
       email: "",
     },
+    error: null,
   },
   getters: {
     activeLogin(state) {
       return !!state.sesion;
+    },
+
+    activeError(state) {
+      return !!state.error;
     },
   },
   mutations: {
@@ -29,6 +34,9 @@ export const sessionModule = {
     },
     SET_USER(state, newUser) {
       state.user = newUser;
+    },
+    SET_ERROR(state, newError) {
+      state.error = newError;
     },
   },
   actions: {
@@ -48,8 +56,11 @@ export const sessionModule = {
           credentials.email,
           credentials.password
         );
+        commit("SET_ERROR", null);
+        Router.push("/");
       } catch (e) {
         console.error("falló al intentar autenticarse", e);
+        commit("SET_ERROR", e);
       } finally {
         commit("SET_LOADING", false);
       }
