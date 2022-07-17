@@ -5,6 +5,7 @@
     <!-- Tarjetas con los eventos -->
     <div>
       <div class="container fluid">
+        <SearchBar />
         <h3 class="eventsCards-Title my-5">Clases cerca de ti</h3>
         <div class="row row-cols-1 row-cols-md-3 gx-4">
           <div
@@ -23,11 +24,19 @@
 <script>
 import EventsCards from "@/components/EventsCards.vue";
 import HeroSection from "@/components/HeroSection.vue";
+<<<<<<< HEAD
 import CategoryButtons from "@/components/CategoryButtons.vue";
 import { mapState, mapActions } from "vuex";
 export default {
   name: "HomeView",
   components: { EventsCards, HeroSection, CategoryButtons },
+=======
+import SearchBar from "@/components/SearchBar.vue";
+import { mapState, mapActions } from "vuex";
+export default {
+  name: "HomeView",
+  components: { EventsCards, HeroSection, SearchBar },
+>>>>>>> e2f5678 (search bar UI ready)
   mounted() {
     this.getAllEvents();
   },
