@@ -24,21 +24,12 @@
 <script>
 import EventsCards from "@/components/EventsCards.vue";
 import HeroSection from "@/components/HeroSection.vue";
-<<<<<<< HEAD
-import CategoryButtons from "@/components/CategoryButtons.vue";
-import SearchBar from "@/components/SearchBar.vue";
-import { mapState, mapActions } from "vuex";
-export default {
-  name: "HomeView",
-  components: { EventsCards, HeroSection, CategoryButtons, SearchBar },
-=======
 import SearchBar from "@/components/SearchBar.vue";
 import CategoryButtons from "@/components/CategoryButtons.vue";
 import { mapState, mapActions } from "vuex";
 export default {
   name: "HomeView",
   components: { EventsCards, HeroSection, CategoryButtons, SearchBar },
->>>>>>> e2f5678 (search bar UI ready)
   mounted() {
     this.getAllEvents();
   },
