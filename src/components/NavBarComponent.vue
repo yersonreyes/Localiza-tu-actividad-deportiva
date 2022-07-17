@@ -2,7 +2,7 @@
   <div class="nav-container">
     <div class="container">
       <b-navbar class="nav" toggleable="lg" type="light" variant="light">
-        <b-navbar-brand @click="pushHome" href="#">
+        <b-navbar-brand @click="pushHome">
           <div class="logo-container">
             <img
               class="logo"
@@ -17,12 +17,12 @@
 
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
-            <b-nav-item @click="pushHome" href="#">Home</b-nav-item>
+            <b-nav-item @click="pushHome">Home</b-nav-item>
           </b-navbar-nav>
 
           <!-- Right aligned nav items -->
           <b-navbar-nav>
-            <div v-if="!activeLogin" class="nav-button-container">
+            <div v-show="!activeLogin" class="nav-button-container">
               <b-button @click="pushLogin" variant="outline-primary"
                 >Sign in</b-button
               >
@@ -31,21 +31,24 @@
               >
             </div>
 
-            <b-nav-item-dropdown v-if="activeLogin">
+            <b-nav-item-dropdown v-show="activeLogin">
               <template #button-content>
                 <em class="avatar-title">
-                  <img
-                    class="avatar"
-                    src="https://yersonreyes.com/assets/img/yersonreyes.jpeg"
-                    alt=""
-                  />
-                  Yerson Reyes
+                  <img class="avatar" :src="verificateAvatar()" alt="" />
+                  {{ user.name + " " + user.lastName }}
                 </em>
               </template>
-              <b-dropdown-item href="#">Profile</b-dropdown-item>
-              <b-dropdown-item href="#">Publicar</b-dropdown-item>
-              <b-dropdown-item @click="closeSesion" href="#"
-                >Sign Out</b-dropdown-item
+              <b-dropdown-item href="#">
+                <b-icon icon="person-fill" aria-hidden="true"></b-icon>
+                Profile</b-dropdown-item
+              >
+              <b-dropdown-item href="#">
+                <b-icon icon="plus-lg" aria-hidden="true"></b-icon>
+                Publicar</b-dropdown-item
+              >
+              <b-dropdown-item @click="closeSession" href="#">
+                <b-icon icon="door-closed-fill" aria-hidden="true"></b-icon>
+                Sign Out</b-dropdown-item
               >
             </b-nav-item-dropdown>
           </b-navbar-nav>
@@ -56,11 +59,11 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapState } from "vuex";
 export default {
   methods: {
     ...mapActions("session", ["signOut"]),
-    async closeSesion() {
+    async closeSession() {
       await this.signOut();
     },
     pushLogin() {
@@ -74,9 +77,16 @@ export default {
     pushHome() {
       this.$router.push(`/`);
     },
+
+    verificateAvatar() {
+      return this.user.avatar
+        ? this.user.avatar
+        : "https://res.cloudinary.com/dd3sndpg3/image/upload/v1658037467/avatar_wrasff.png";
+    },
   },
   computed: {
     ...mapGetters("session", ["activeLogin"]),
+    ...mapState("session", ["user"]),
   },
 };
 </script>

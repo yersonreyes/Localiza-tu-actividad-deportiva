@@ -1,33 +1,52 @@
 import { getAuth, signOut, signInWithEmailAndPassword } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore/lite";
+import { db } from "../../main";
 import Router from "@/router";
 
 export const sessionModule = {
   namespaced: true,
   state: {
-    user: null,
+    session: null,
     loading: false,
+    user: {
+      avatar: "",
+      name: "",
+      lastName: "",
+      email: "",
+    },
+    error: null,
   },
   getters: {
     activeLogin(state) {
-      return !!state.user;
+      return !!state.session;
+    },
+
+    activeError(state) {
+      return !!state.error;
     },
   },
   mutations: {
-    SET_USER(state, newUser) {
-      state.user = newUser;
+    SET_SESSION(state, newSession) {
+      state.session = newSession;
     },
     SET_LOADING(state, newLoading) {
       state.loading = newLoading;
+    },
+    SET_USER(state, newUser) {
+      state.user = newUser;
+    },
+    SET_ERROR(state, newError) {
+      state.error = newError;
     },
   },
   actions: {
     async subscribeToAuthStateChange({ commit }) {
       const auth = getAuth();
-      auth.onAuthStateChanged((user) => {
-        commit("SET_USER", user);
-        if (user) Router.push("/");
+      auth.onAuthStateChanged((session) => {
+        commit("SET_SESSION", session);
       });
     },
+
     async signInWithEmailAndPassword({ commit }, credentials) {
       commit("SET_LOADING", true);
       try {
@@ -37,19 +56,32 @@ export const sessionModule = {
           credentials.email,
           credentials.password
         );
+        commit("SET_ERROR", null);
+        Router.push("/");
       } catch (e) {
         console.error("falló al intentar autenticarse", e);
+        commit("SET_ERROR", e);
       } finally {
         commit("SET_LOADING", false);
-        Router.push("/");
       }
     },
 
     async signOut() {
       const auth = getAuth();
       await signOut(auth).then(() => {
-        this.$router.push("/login");
+        Router.push("/login");
       });
+    },
+
+    async getUser({ commit, state }) {
+      const user = doc(db, "users", state.session.email);
+      const docSnap = await getDoc(user);
+      if (docSnap.exists()) {
+        commit("SET_USER", docSnap.data());
+      } else {
+        // doc.data() will be undefined in this case
+        console.log("User data not found!");
+      }
     },
   },
 };
