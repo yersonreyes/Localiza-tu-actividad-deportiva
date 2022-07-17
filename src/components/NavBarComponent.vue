@@ -46,7 +46,7 @@
                 <b-icon icon="plus-lg" aria-hidden="true"></b-icon>
                 Publicar</b-dropdown-item
               >
-              <b-dropdown-item @click="closeSesion" href="#">
+              <b-dropdown-item @click="closeSession" href="#">
                 <b-icon icon="door-closed-fill" aria-hidden="true"></b-icon>
                 Sign Out</b-dropdown-item
               >
@@ -63,7 +63,7 @@ import { mapGetters, mapActions, mapState } from "vuex";
 export default {
   methods: {
     ...mapActions("session", ["signOut"]),
-    async closeSesion() {
+    async closeSession() {
       await this.signOut();
     },
     pushLogin() {
