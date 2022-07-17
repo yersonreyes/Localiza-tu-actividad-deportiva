@@ -1,11 +1,11 @@
 <template>
   <div>
     <HeroSection />
+    <SearchBar />
     <CategoryButtons />
     <!-- Tarjetas con los eventos -->
     <div>
       <div class="container fluid">
-        <SearchBar />
         <h3 class="eventsCards-Title my-5">Clases cerca de ti</h3>
         <div class="row row-cols-1 row-cols-md-3 gx-4">
           <div
