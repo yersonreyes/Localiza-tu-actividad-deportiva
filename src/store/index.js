@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { sessionModule as session } from "./modules/sessionModule.js";
-import { eventsModule as events } from "@/store/modules/eventsModule";
+import { eventsModule as events } from "./modules/EventsModule.js";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
