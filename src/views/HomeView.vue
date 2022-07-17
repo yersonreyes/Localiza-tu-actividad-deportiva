@@ -1,5 +1,6 @@
 <template>
   <div>
+    <HeroSection />
     <!-- Tarjetas con los eventos -->
     <div>
       <div class="container fluid">
@@ -20,10 +21,11 @@
 
 <script>
 import EventsCards from "@/components/EventsCards.vue";
+import HeroSection from "@/components/HeroSection.vue";
 import { mapState, mapActions } from "vuex";
 export default {
   name: "HomeView",
-  components: { EventsCards },
+  components: { EventsCards, HeroSection },
   mounted() {
     this.getAllEvents();
   },
