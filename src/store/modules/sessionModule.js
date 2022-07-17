@@ -6,7 +6,7 @@ import Router from "@/router";
 export const sessionModule = {
   namespaced: true,
   state: {
-    sesion: null,
+    session: null,
     loading: false,
     user: {
       avatar: "",
@@ -18,7 +18,7 @@ export const sessionModule = {
   },
   getters: {
     activeLogin(state) {
-      return !!state.sesion;
+      return !!state.session;
     },
 
     activeError(state) {
@@ -26,8 +26,8 @@ export const sessionModule = {
     },
   },
   mutations: {
-    SET_SESION(state, newSesion) {
-      state.sesion = newSesion;
+    SET_SESSION(state, newSession) {
+      state.session = newSession;
     },
     SET_LOADING(state, newLoading) {
       state.loading = newLoading;
@@ -42,8 +42,8 @@ export const sessionModule = {
   actions: {
     async subscribeToAuthStateChange({ commit }) {
       const auth = getAuth();
-      auth.onAuthStateChanged((sesion) => {
-        commit("SET_SESION", sesion);
+      auth.onAuthStateChanged((session) => {
+        commit("SET_SESSION", session);
       });
     },
 
@@ -74,7 +74,7 @@ export const sessionModule = {
     },
 
     async getUser({ commit, state }) {
-      const user = doc(db, "users", state.sesion.email);
+      const user = doc(db, "users", state.session.email);
       const docSnap = await getDoc(user);
       if (docSnap.exists()) {
         commit("SET_USER", docSnap.data());
