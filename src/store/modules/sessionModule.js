@@ -52,7 +52,6 @@ export const sessionModule = {
         console.error("falló al intentar autenticarse", e);
       } finally {
         commit("SET_LOADING", false);
-        Router.push("/");
       }
     },
 

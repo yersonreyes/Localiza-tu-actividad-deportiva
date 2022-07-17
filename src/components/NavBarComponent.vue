@@ -62,7 +62,7 @@
 import { mapGetters, mapActions, mapState } from "vuex";
 export default {
   methods: {
-    ...mapActions("session", ["signOut", "getUser"]),
+    ...mapActions("session", ["signOut"]),
     async closeSesion() {
       await this.signOut();
     },
@@ -87,9 +87,6 @@ export default {
   computed: {
     ...mapGetters("session", ["activeLogin"]),
     ...mapState("session", ["user"]),
-  },
-  created() {
-    this.getUser();
   },
 };
 </script>
