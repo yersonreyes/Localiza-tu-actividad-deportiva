@@ -48,10 +48,11 @@ export default {
     };
   },
   methods: {
-    ...mapActions("session", ["signInWithEmailAndPassword"]),
+    ...mapActions("session", ["signInWithEmailAndPassword", "getUser"]),
     async onSubmit(event) {
       event.preventDefault();
       await this.signInWithEmailAndPassword(this.form);
+      await this.getUser();
     },
   },
 };
