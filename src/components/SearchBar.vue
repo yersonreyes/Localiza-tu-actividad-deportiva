@@ -15,7 +15,7 @@
 
       <b-form-input
         v-model="search"
-        :type="search"
+        type="search"
         id="input-large"
         size="lg"
         placeholder="¿Qué actividad buscas?"
@@ -23,7 +23,11 @@
       ></b-form-input>
 
       <b-input-group-append>
-        <b-button id="button-shape" size="lg" variant="primary"
+        <b-button
+          @click="filterResults"
+          id="button-shape"
+          size="lg"
+          variant="primary"
           >Buscar</b-button
         >
       </b-input-group-append>
@@ -36,7 +40,17 @@ export default {
   name: "SearchBar",
   data: () => ({
     search: "",
+    filteredResults: [],
   }),
+  props: ["events"],
+  methods: {
+    filterResults() {
+      this.filteredResults = this.events.filter((event) => {
+        return event.name.toLowerCase().match(this.search.toLowerCase());
+      });
+      this.$emit("eventsFiltered", this.filteredResults);
+    },
+  },
 };
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <div>
     <HeroSection />
-    <SearchBar />
+    <SearchBar :events="events" @eventsFiltered="newEventsList" />
     <CategoryButtons />
     <!-- Tarjetas con los eventos -->
     <div>
@@ -13,7 +13,9 @@
             v-for="(event, index) in events"
             :key="index"
           >
-            <EventsCards :event="event" />
+            <EventsCards
+              :event="eventsFiltered ? event : this.eventsFiltered"
+            />
           </div>
         </div>
       </div>
@@ -30,6 +32,9 @@ import { mapState, mapActions } from "vuex";
 export default {
   name: "HomeView",
   components: { EventsCards, HeroSection, CategoryButtons, SearchBar },
+  data: () => ({
+    eventsFiltered: [],
+  }),
   mounted() {
     this.getAllEvents();
   },
@@ -38,6 +43,10 @@ export default {
   },
   methods: {
     ...mapActions("events", { getAllEvents: "getEvents" }),
+    newEventsList(filtered) {
+      this.eventsFiltered = filtered;
+      console.log(this.eventsFiltered);
+    },
   },
 };
 </script>
