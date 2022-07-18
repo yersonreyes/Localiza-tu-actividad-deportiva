@@ -1,6 +1,7 @@
 <template>
   <div>
     <HeroSection />
+    <SearchBar />
     <CategoryButtons />
     <!-- Tarjetas con los eventos -->
     <div>
@@ -23,11 +24,12 @@
 <script>
 import EventsCards from "@/components/EventsCards.vue";
 import HeroSection from "@/components/HeroSection.vue";
+import SearchBar from "@/components/SearchBar.vue";
 import CategoryButtons from "@/components/CategoryButtons.vue";
 import { mapState, mapActions } from "vuex";
 export default {
   name: "HomeView",
-  components: { EventsCards, HeroSection, CategoryButtons },
+  components: { EventsCards, HeroSection, CategoryButtons, SearchBar },
   mounted() {
     this.getAllEvents();
   },
