@@ -9,7 +9,7 @@
     <b-form class="login-form-container" @submit="onSubmit">
       <b-form-group
         id="input-group-1"
-        label="Correo electronico:"
+        label="Correo electronico"
         label-for="input-1"
       >
         <b-form-input
@@ -73,6 +73,7 @@ export default {
 <style scoped>
 .container-login {
   position: relative;
+  margin-top: 120px;
   max-width: 508px;
   padding: 32px 32px 12px 32px;
   border: 1px solid #e2e8f0;
@@ -132,5 +133,11 @@ export default {
 
 hr {
   background-color: lightgray;
+}
+
+@media (max-width: 768px) {
+  .container-login {
+    padding: 16px 16px 6px 16px;
+  }
 }
 </style>

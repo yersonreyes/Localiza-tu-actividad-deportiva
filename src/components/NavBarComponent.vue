@@ -38,15 +38,15 @@
                   {{ user.name + " " + user.lastName }}
                 </em>
               </template>
-              <b-dropdown-item href="#">
+              <b-dropdown-item>
                 <b-icon icon="person-fill" aria-hidden="true"></b-icon>
                 Profile</b-dropdown-item
               >
-              <b-dropdown-item href="#">
+              <b-dropdown-item>
                 <b-icon icon="plus-lg" aria-hidden="true"></b-icon>
                 Publicar</b-dropdown-item
               >
-              <b-dropdown-item @click="closeSession" href="#">
+              <b-dropdown-item @click="closeSession">
                 <b-icon icon="door-closed-fill" aria-hidden="true"></b-icon>
                 Sign Out</b-dropdown-item
               >
@@ -99,6 +99,9 @@ export default {
 .nav-container {
   background-color: white;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.08);
+  position: fixed;
+  z-index: 1000;
+  width: 100%;
 }
 
 .nav {

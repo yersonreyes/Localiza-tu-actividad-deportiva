@@ -16,7 +16,6 @@ export default {
 <style>
 .login-view {
   width: 100vw;
-  height: calc(100vh - 58px);
   display: flex;
   justify-content: center;
   align-items: center;
