@@ -1,12 +1,19 @@
 <template>
   <div>
+    <!-- Botones con Filtros -->
     <b-container
       class="fluid my-5 d-flex justify-content-around"
       style="max-width: 1500px"
     >
       <b-row class="row gx-4">
         <b-col class="col categoryButtons-cols">
-          <b-button class="categoryButtons-button" pill variant="outline-dark">
+          <b-button
+            class="categoryButtons-button"
+            :class="{ 'change-background': filter === 'Football' }"
+            pill
+            variant="outline-dark"
+            @click="assignFilter('Football')"
+          >
             <span class="d-flex align-items-center"
               ><mdicon
                 name="soccer"
@@ -17,7 +24,13 @@
           >
         </b-col>
         <b-col class="col categoryButtons-cols">
-          <b-button class="categoryButtons-button" pill variant="outline-dark">
+          <b-button
+            class="categoryButtons-button"
+            :class="{ 'change-background': filter === 'Tennis' }"
+            pill
+            variant="outline-dark"
+            @click="assignFilter('Tennis')"
+          >
             <span class="d-flex align-items-center"
               ><mdicon
                 name="tennis-ball"
@@ -27,7 +40,13 @@
             ></b-button
           ></b-col
         ><b-col class="col categoryButtons-cols">
-          <b-button class="categoryButtons-button" pill variant="outline-dark">
+          <b-button
+            class="categoryButtons-button"
+            :class="{ 'change-background': filter === 'Surf' }"
+            pill
+            variant="outline-dark"
+            @click="assignFilter('Surf')"
+          >
             <span class="d-flex align-items-center"
               ><mdicon
                 name="surfing"
@@ -37,7 +56,13 @@
             ></b-button
           ></b-col
         ><b-col class="col categoryButtons-cols">
-          <b-button class="categoryButtons-button" pill variant="outline-dark">
+          <b-button
+            class="categoryButtons-button"
+            :class="{ 'change-background': filter === 'Crossfit' }"
+            pill
+            variant="outline-dark"
+            @click="assignFilter('Crossfit')"
+          >
             <span class="d-flex align-items-center"
               ><mdicon
                 name="weight-lifter"
@@ -47,7 +72,13 @@
             ></b-button
           ></b-col
         ><b-col class="col categoryButtons-cols"
-          ><b-button class="categoryButtons-button" pill variant="outline-dark">
+          ><b-button
+            class="categoryButtons-button"
+            :class="{ 'change-background': filter === 'Kayak' }"
+            pill
+            variant="outline-dark"
+            @click="assignFilter('Kayak')"
+          >
             <span class="d-flex align-items-center"
               ><mdicon
                 name="kayaking"
@@ -57,7 +88,13 @@
             ></b-button
           ></b-col
         ><b-col class="col categoryButtons-cols">
-          <b-button class="categoryButtons-button" pill variant="outline-dark">
+          <b-button
+            class="categoryButtons-button"
+            :class="{ 'change-background': filter === 'Trekking' }"
+            pill
+            variant="outline-dark"
+            @click="assignFilter('Trekking')"
+          >
             <span class="d-flex align-items-center"
               ><mdicon
                 name="hiking"
@@ -67,7 +104,13 @@
             ></b-button
           ></b-col
         ><b-col class="col categoryButtons-cols">
-          <b-button class="categoryButtons-button" pill variant="outline-dark">
+          <b-button
+            class="categoryButtons-button"
+            :class="{ 'change-background': filter === 'Snowboard' }"
+            pill
+            variant="outline-dark"
+            @click="assignFilter('Snowboard')"
+          >
             <span class="d-flex align-items-center"
               ><mdicon
                 name="snowboard"
@@ -77,7 +120,13 @@
             ></b-button
           ></b-col
         ><b-col class="col categoryButtons-cols">
-          <b-button class="categoryButtons-button" pill variant="outline-dark">
+          <b-button
+            class="categoryButtons-button"
+            :class="{ 'change-background': filter === 'Calisthenics' }"
+            pill
+            variant="outline-dark"
+            @click="assignFilter('Calisthenics')"
+          >
             <span class="d-flex align-items-center"
               ><mdicon
                 name="dumbbell"
@@ -87,27 +136,29 @@
             ></b-button
           ></b-col
         ><b-col class="col categoryButtons-cols">
-          <b-button class="categoryButtons-button" pill variant="outline-dark">
+          <b-button
+            class="categoryButtons-button"
+            :class="{ 'change-background': filter === 'Swimming' }"
+            pill
+            variant="outline-dark"
+          >
             <span class="d-flex align-items-center"
               ><mdicon
                 name="swim"
                 size="24"
                 class="categoryButtons-icon"
+                @click="assignFilter('Swimming')"
               />Natación</span
             ></b-button
           ></b-col
         ><b-col class="col categoryButtons-cols">
-          <b-button class="categoryButtons-button" pill variant="outline-dark">
-            <span class="d-flex align-items-center"
-              ><mdicon
-                name="tennis"
-                size="24"
-                class="categoryButtons-icon"
-              />Padel</span
-            ></b-button
-          ></b-col
-        ><b-col class="col categoryButtons-cols">
-          <b-button class="categoryButtons-button" pill variant="outline-dark">
+          <b-button
+            class="categoryButtons-button"
+            :class="{ 'change-background': filter === 'Paddle' }"
+            pill
+            variant="outline-dark"
+            @click="assignFilter('Paddle')"
+          >
             <span class="d-flex align-items-center"
               ><mdicon
                 name="tennis"
@@ -123,7 +174,29 @@
 </template>
 
 <script>
-export default {};
+import { mapState } from "vuex";
+export default {
+  mounted() {},
+  data: () => ({
+    filter: "",
+  }),
+  props: ["event"],
+  computed: {
+    ...mapState("events", ["events"]),
+  },
+  methods: {
+    assignFilter(typeOfFilter) {
+      if (this.filter === typeOfFilter) {
+        this.filter = "";
+        this.$emit("getFilters", this.filter);
+      } else {
+        this.filter = typeOfFilter;
+        this.$emit("getFilters", this.filter);
+      }
+      console.log(this.filter);
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -135,6 +208,16 @@ export default {};
 .categoryButtons-button {
   border-color: lightgray;
 }
+.change-background {
+  background-color: black;
+  color: white;
+  border-color: black;
+}
+.categoryButtons-button:focus {
+  outline: none;
+  box-shadow: none;
+}
+
 .categoryButtons-cols {
   margin-bottom: 5px;
 }
