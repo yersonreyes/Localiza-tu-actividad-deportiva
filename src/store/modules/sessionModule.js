@@ -42,8 +42,11 @@ export const sessionModule = {
   actions: {
     async subscribeToAuthStateChange({ commit }) {
       const auth = getAuth();
-      auth.onAuthStateChanged((session) => {
-        commit("SET_SESSION", session);
+      return new Promise((resolve) => {
+        auth.onAuthStateChanged((session) => {
+          commit("SET_SESSION", session);
+          resolve();
+        });
       });
     },
 
