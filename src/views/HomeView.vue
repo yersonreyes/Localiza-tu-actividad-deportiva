@@ -10,12 +10,10 @@
         <div class="row row-cols-1 row-cols-md-3 gx-4">
           <div
             class="col col-xl-3 col-lg-4 col-md-6 col-sm-12 eventsCards-cards"
-            v-for="(event, index) in events"
+            v-for="(event, index) in eventsFiltered"
             :key="index"
           >
-            <EventsCards
-              :event="eventsFiltered ? event : this.eventsFiltered"
-            />
+            <EventsCards :event="event" />
           </div>
         </div>
       </div>

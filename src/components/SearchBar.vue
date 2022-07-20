@@ -48,7 +48,19 @@ export default {
       this.filteredResults = this.events.filter((event) => {
         return event.name.toLowerCase().match(this.search.toLowerCase());
       });
-      this.$emit("eventsFiltered", this.filteredResults);
+      console.log(this.events);
+      this.$emit(
+        "eventsFiltered",
+        this.filteredResults.length === 0 ? this.events : this.filteredResults
+      );
+    },
+  },
+  watch: {
+    events: {
+      immediate: true,
+      handler() {
+        this.filterResults();
+      },
     },
   },
 };
