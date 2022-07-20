@@ -1,5 +1,10 @@
-import { getAuth, signOut, signInWithEmailAndPassword } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore/lite";
+import {
+  getAuth,
+  signOut,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
+import { doc, getDoc, setDoc } from "firebase/firestore/lite";
 import { db } from "../../main";
 import Router from "@/router";
 
@@ -15,6 +20,7 @@ export const sessionModule = {
       email: "",
     },
     error: null,
+    errorRegister: null,
   },
   getters: {
     activeLogin(state) {
@@ -23,6 +29,21 @@ export const sessionModule = {
 
     activeError(state) {
       return !!state.error;
+    },
+
+    errorRegister(state) {
+      if (state.errorRegister === null) {
+        return false;
+      } else if (
+        state.errorRegister ===
+        "Firebase: Password should be at least 6 characters (auth/weak-password)."
+      ) {
+        return "La contraseña debe tener mas de 6 caracteres";
+      } else if (
+        state.errorRegister == "Firebase: Error (auth/email-already-in-use)."
+      ) {
+        return "El correo ya esta en uso";
+      }
     },
   },
   mutations: {
@@ -37,6 +58,9 @@ export const sessionModule = {
     },
     SET_ERROR(state, newError) {
       state.error = newError;
+    },
+    SET_ERROR_REGISTER(state, newErrorRegister) {
+      state.errorRegister = newErrorRegister;
     },
   },
   actions: {
@@ -85,6 +109,35 @@ export const sessionModule = {
         // doc.data() will be undefined in this case
         console.log("User data not found!");
       }
+    },
+
+    async registerUser({ commit }, credentials) {
+      const auth = getAuth();
+      await createUserWithEmailAndPassword(
+        auth,
+        credentials.email,
+        credentials.password
+      )
+        .then(() => {
+          setDoc(doc(db, "users", credentials.email), {
+            email: credentials.email,
+            name: credentials.name,
+            lastName: credentials.lastName,
+            avatar: "",
+          });
+          commit("SET_USER", {
+            email: credentials.email,
+            name: credentials.name,
+            lastName: credentials.lastName,
+            avatar: "",
+          });
+          commit("SET_ERROR_REGISTER", null);
+          Router.push("/");
+        })
+        .catch((error) => {
+          var errorMessage = error.message;
+          commit("SET_ERROR_REGISTER", errorMessage);
+        });
     },
   },
 };

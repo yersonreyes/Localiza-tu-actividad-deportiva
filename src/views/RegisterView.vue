@@ -1,9 +1,23 @@
 <template>
-  <h1>register</h1>
+  <div class="container register-view">
+    <RegisterComponent />
+  </div>
 </template>
 
 <script>
-export default {};
+import RegisterComponent from "@/components/RegisterComponent.vue";
+export default {
+  components: {
+    RegisterComponent,
+  },
+};
 </script>
 
-<style></style>
+<style>
+.register-view {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
