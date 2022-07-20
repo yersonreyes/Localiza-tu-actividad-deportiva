@@ -63,9 +63,12 @@
       </b-form-group>
       <b-button type="submit" variant="primary">Registrar</b-button>
     </b-form>
-    <b-alert class="mt-3" v-if="activeError" show variant="danger"
-      >Email o contraseña no son validos</b-alert
-    >
+    <b-alert class="mt-3" v-if="errorRegister" show variant="danger">{{
+      errorRegister
+    }}</b-alert>
+    <b-alert class="mt-3" v-if="passwordValidator" show variant="danger">{{
+      passwordValidator
+    }}</b-alert>
     <p class="register-p">
       ¿Ya tienes una cuenta?
       <router-link class="register" to="/login">Iniciar Sesíon</router-link>
@@ -85,18 +88,24 @@ export default {
         password: "",
         password2: "",
       },
+      passwordValidator: false,
     };
   },
   methods: {
-    ...mapActions("session", ["signInWithEmailAndPassword", "getUser"]),
+    ...mapActions("session", ["registerUser", "getUser"]),
     async onSubmit(event) {
       event.preventDefault();
-      await this.signInWithEmailAndPassword(this.form);
-      await this.getUser();
+      if (this.form.password !== this.form.password2) {
+        this.passwordValidator = "Las contraseñas no son iguales";
+        return;
+      } else {
+        await this.registerUser(this.form);
+        this.passwordValidator = false;
+      }
     },
   },
   computed: {
-    ...mapGetters("session", ["activeError"]),
+    ...mapGetters("session", ["errorRegister"]),
   },
 };
 </script>
@@ -175,6 +184,11 @@ hr {
 @media (max-width: 768px) {
   .container-login {
     padding: 16px 16px 6px 16px;
+  }
+
+  .container-name {
+    flex-direction: column;
+    gap: 16px;
   }
 }
 </style>
