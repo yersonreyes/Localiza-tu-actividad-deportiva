@@ -1,8 +1,10 @@
 <template>
   <div>
     <HeroSection />
-    <SearchBar />
+
+    <SearchBar :events="events" @eventsFiltered="newEventsList" />
     <CategoryButtons @getFilters="setFilter" />
+
     <!-- Tarjetas con los eventos -->
     <div>
       <h1></h1>
@@ -31,11 +33,10 @@ import CategoryButtons from "@/components/CategoryButtons.vue";
 export default {
   name: "HomeView",
   components: { EventsCards, HeroSection, SearchBar, CategoryButtons },
-  data() {
-    return {
-      filter: "",
-    };
-  },
+  data: () => ({
+    eventsFiltered: [],
+    filter: "",
+  }),
   mounted() {
     this.getAllEvents();
   },
@@ -56,6 +57,10 @@ export default {
     setFilter(value) {
       this.filter = value;
       console.log(value);
+    },
+    newEventsList(filtered) {
+      this.eventsFiltered = filtered;
+      console.log(this.eventsFiltered);
     },
   },
 };
