@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <NavBarComponent />
-    <router-view />
+    <router-view class="container-margin" />
   </div>
 </template>
 
@@ -21,5 +21,8 @@ export default {
 :root {
   --basefontFamily: "Inter", sans-serif;
   --basefontFamily2: "Open Sans", sans-serif;
+}
+.container-margin {
+  padding-top: 58px;
 }
 </style>
