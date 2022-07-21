@@ -1,66 +1,56 @@
 <template>
-  <b-row class="my-5" align-h="center">
-    <b-input-group class="content-styling">
-      <b-input-group-prepend class="btn-outline-secondary">
-        <b-dropdown
-          size="lg"
-          text="Santiago"
-          variant="outline-secondary"
-          class="btn-softgrey btn-outline-secondary"
-        >
-          <b-dropdown-item>Action A</b-dropdown-item>
-          <b-dropdown-item>Action B</b-dropdown-item>
-        </b-dropdown>
-      </b-input-group-prepend>
+  <div>
+    <b-form @submit="onSubmit">
+      <b-row class="my-5 mx-auto" align-h="center">
+        <b-input-group class="content-styling">
+          <b-input-group-prepend class="btn-outline-secondary">
+            <b-dropdown
+              size="lg"
+              text="Santiago"
+              variant="outline-secondary"
+              class="btn-softgrey btn-outline-secondary"
+            >
+              <b-dropdown-item>Action A</b-dropdown-item>
+              <b-dropdown-item>Action B</b-dropdown-item>
+            </b-dropdown>
+          </b-input-group-prepend>
+          <b-form-input
+            v-model="searchData"
+            type="text"
+            id="input-large"
+            size="lg"
+            placeholder="¿Qué actividad buscas?"
+            class="text-style"
+            ref="formReset"
+          ></b-form-input>
 
-      <b-form-input
-        v-model="search"
-        type="search"
-        id="input-large"
-        size="lg"
-        placeholder="¿Qué actividad buscas?"
-        class="text-style"
-      ></b-form-input>
-
-      <b-input-group-append>
-        <b-button
-          @click="filterResults"
-          id="button-shape"
-          size="lg"
-          variant="primary"
-          >Buscar</b-button
-        >
-      </b-input-group-append>
-    </b-input-group>
-  </b-row>
+          <b-input-group-append>
+            <b-button
+              type="submit"
+              id="button-shape"
+              size="lg"
+              variant="primary"
+              >Buscar</b-button
+            >
+          </b-input-group-append>
+        </b-input-group>
+      </b-row>
+    </b-form>
+  </div>
 </template>
 
 <script>
 export default {
   name: "SearchBar",
   data: () => ({
-    search: "",
-    filteredResults: [],
+    searchData: "",
   }),
   props: ["events"],
   methods: {
-    filterResults() {
-      this.filteredResults = this.events.filter((event) => {
-        return event.name.toLowerCase().match(this.search.toLowerCase());
-      });
-      console.log(this.events);
-      this.$emit(
-        "eventsFiltered",
-        this.filteredResults.length === 0 ? this.events : this.filteredResults
-      );
-    },
-  },
-  watch: {
-    events: {
-      immediate: true,
-      handler() {
-        this.filterResults();
-      },
+    onSubmit(event) {
+      event.target.reset();
+      this.$emit("getSearchData", this.searchData);
+      console.log(this.searchData);
     },
   },
 };
