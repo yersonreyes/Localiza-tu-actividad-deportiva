@@ -2,14 +2,29 @@
   <div>
     <HeroSection />
 
-    <SearchBar :events="events" @eventsFiltered="newEventsList" />
+    <SearchBar :events="events" @getSearchData="setSearchData" />
     <CategoryButtons @getFilters="setFilter" />
 
     <!-- Tarjetas con los eventos -->
     <div>
       <h1></h1>
       <div class="container fluid">
-        <h3 class="eventsCards-Title my-5">Clases cerca de ti</h3>
+        <h3
+          class="eventsCards-Title my-5"
+          v-if="searchData === '' && filter === filter"
+        >
+          Categorías
+        </h3>
+        <div v-show="searchData">
+          <div>
+            <h3 class="eventsCards-Title my-5 d-inline-flex">
+              Resultados para la búsqueda: "{{ searchData }}"
+              <b-button class="mx-2" pill variant="dark" @click="resetSearch"
+                >Realizar una nueva búsqueda</b-button
+              >
+            </h3>
+          </div>
+        </div>
         <div class="row row-cols-1 row-cols-md-3 gx-4">
           <div
             class="col col-xl-3 col-lg-4 col-md-6 col-sm-12 eventsCards-cards"
@@ -34,7 +49,7 @@ export default {
   name: "HomeView",
   components: { EventsCards, HeroSection, SearchBar, CategoryButtons },
   data: () => ({
-    eventsFiltered: [],
+    searchData: "",
     filter: "",
   }),
   mounted() {
@@ -43,10 +58,25 @@ export default {
   computed: {
     ...mapState("events", ["events"]),
     filteredByCategory() {
-      if (this.filter === "") {
-        return this.events;
-      } else {
+      // if (this.filter === "" && this.searchData === "") {
+      //   return this.events; }
+      if (this.filter === "" && this.searchData === this.searchData) {
+        return this.events.filter((event) =>
+          event.name.toLowerCase().match(this.searchData.toLowerCase())
+        );
+        // } else if (this.filter === "" && this.searchData === this.searchData) {
+        //   return this.filter;
+      } else if (this.searchData === "" && this.filter === this.filter) {
         return this.events.filter((event) => event.category === this.filter);
+      } else if (
+        this.searchData === this.searchData &&
+        this.filter === this.filter
+      ) {
+        return this.events.filter((event) =>
+          event.name.toLowerCase().match(this.searchData.toLowerCase())
+        );
+      } else {
+        return this.events;
       }
     },
   },
@@ -56,11 +86,13 @@ export default {
     }),
     setFilter(value) {
       this.filter = value;
-      console.log(value);
     },
-    newEventsList(filtered) {
-      this.eventsFiltered = filtered;
-      console.log(this.eventsFiltered);
+    setSearchData(value) {
+      this.searchData = value;
+    },
+    resetSearch() {
+      this.filter = "";
+      this.searchData = "";
     },
   },
 };
