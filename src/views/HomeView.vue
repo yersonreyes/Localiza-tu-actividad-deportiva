@@ -16,9 +16,7 @@
             v-for="(event, index) in filteredByCategory"
             :key="index"
           >
-            <EventsCards
-              :event="eventsFiltered ? event : this.eventsFiltered"
-            />
+            <EventsCards :event="event" />
           </div>
         </div>
       </div>
