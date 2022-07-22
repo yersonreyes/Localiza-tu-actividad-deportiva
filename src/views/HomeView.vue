@@ -3,8 +3,9 @@
     <HeroSection />
 
     <SearchBar :events="events" @getSearchData="setSearchData" />
-    <CategoryButtons @getFilters="setFilter" />
-
+    <div v-if="searchData === ''">
+      <CategoryButtons @getFilters="setFilter" />
+    </div>
     <!-- Tarjetas con los eventos -->
     <div>
       <h1></h1>
