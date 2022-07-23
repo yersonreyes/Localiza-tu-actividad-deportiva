@@ -1,12 +1,8 @@
 <template>
   <div>
-    <!-- Botones con Filtros -->
-    <b-container
-      class="fluid my-5 d-flex justify-content-around"
-      style="max-width: 1500px"
-    >
-      <b-row class="row gx-4">
-        <b-col class="col categoryButtons-cols">
+    <b-container class="d-flex justify-content-around">
+      <b-row class="row">
+        <b-col class="col col-xl col-md-2 col-sm-4 categoryButtons-cols">
           <b-button
             class="categoryButtons-button"
             :class="{ 'change-background': filter === 'Football' }"
@@ -23,71 +19,7 @@
             ></b-button
           >
         </b-col>
-        <b-col class="col categoryButtons-cols">
-          <b-button
-            class="categoryButtons-button"
-            :class="{ 'change-background': filter === 'Tennis' }"
-            pill
-            variant="outline-dark"
-            @click="assignFilter('Tennis')"
-          >
-            <span class="d-flex align-items-center"
-              ><mdicon
-                name="tennis-ball"
-                size="24"
-                class="categoryButtons-icon"
-              />Tenis</span
-            ></b-button
-          ></b-col
-        ><b-col class="col categoryButtons-cols">
-          <b-button
-            class="categoryButtons-button"
-            :class="{ 'change-background': filter === 'Surf' }"
-            pill
-            variant="outline-dark"
-            @click="assignFilter('Surf')"
-          >
-            <span class="d-flex align-items-center"
-              ><mdicon
-                name="surfing"
-                size="24"
-                class="categoryButtons-icon"
-              />Surf</span
-            ></b-button
-          ></b-col
-        ><b-col class="col categoryButtons-cols">
-          <b-button
-            class="categoryButtons-button"
-            :class="{ 'change-background': filter === 'Crossfit' }"
-            pill
-            variant="outline-dark"
-            @click="assignFilter('Crossfit')"
-          >
-            <span class="d-flex align-items-center"
-              ><mdicon
-                name="weight-lifter"
-                size="24"
-                class="categoryButtons-icon"
-              />Crossfit</span
-            ></b-button
-          ></b-col
-        ><b-col class="col categoryButtons-cols"
-          ><b-button
-            class="categoryButtons-button"
-            :class="{ 'change-background': filter === 'Kayak' }"
-            pill
-            variant="outline-dark"
-            @click="assignFilter('Kayak')"
-          >
-            <span class="d-flex align-items-center"
-              ><mdicon
-                name="kayaking"
-                size="24"
-                class="categoryButtons-icon"
-              />Kayak</span
-            ></b-button
-          ></b-col
-        ><b-col class="col categoryButtons-cols">
+        <b-col class="col col-xl col-md-2 col-sm-4 categoryButtons-cols">
           <b-button
             class="categoryButtons-button"
             :class="{ 'change-background': filter === 'Trekking' }"
@@ -103,23 +35,41 @@
               />Trekking</span
             ></b-button
           ></b-col
-        ><b-col class="col categoryButtons-cols">
+        >
+        <b-col class="col col-xl col-md-2 col-sm-4 categoryButtons-cols">
           <b-button
             class="categoryButtons-button"
-            :class="{ 'change-background': filter === 'Snowboard' }"
+            :class="{ 'change-background': filter === 'Tennis' }"
             pill
             variant="outline-dark"
-            @click="assignFilter('Snowboard')"
+            @click="assignFilter('Tennis')"
           >
             <span class="d-flex align-items-center"
               ><mdicon
-                name="snowboard"
+                name="tennis-ball"
                 size="24"
                 class="categoryButtons-icon"
-              />Snowboard</span
+              />Tenis</span
             ></b-button
           ></b-col
-        ><b-col class="col categoryButtons-cols">
+        ><b-col class="col col-xl col-md-2 col-sm-4 categoryButtons-cols">
+          <b-button
+            class="categoryButtons-button"
+            :class="{ 'change-background': filter === 'Crossfit' }"
+            pill
+            variant="outline-dark"
+            @click="assignFilter('Crossfit')"
+          >
+            <span class="d-flex align-items-center"
+              ><mdicon
+                name="weight-lifter"
+                size="24"
+                class="categoryButtons-icon"
+              />Crossfit</span
+            ></b-button
+          ></b-col
+        >
+        <b-col class="col col-xl col-md-2 col-sm-4 categoryButtons-cols">
           <b-button
             class="categoryButtons-button"
             :class="{ 'change-background': filter === 'Calisthenics' }"
@@ -135,7 +85,24 @@
               />Calistenia</span
             ></b-button
           ></b-col
-        ><b-col class="col categoryButtons-cols">
+        >
+        <b-col class="col col-xl col-md-2 col-sm-4 categoryButtons-cols">
+          <b-button
+            class="categoryButtons-button"
+            :class="{ 'change-background': filter === 'Surf' }"
+            pill
+            variant="outline-dark"
+            @click="assignFilter('Surf')"
+          >
+            <span class="d-flex align-items-center"
+              ><mdicon
+                name="surfing"
+                size="24"
+                class="categoryButtons-icon"
+              />Surf</span
+            ></b-button
+          ></b-col
+        ><b-col class="col col-xl col-md-2 col-sm-4 categoryButtons-cols">
           <b-button
             class="categoryButtons-button"
             :class="{ 'change-background': filter === 'Swimming' }"
@@ -151,7 +118,24 @@
               />Natación</span
             ></b-button
           ></b-col
-        ><b-col class="col categoryButtons-cols">
+        >
+        <b-col class="col col-xl col-md-2 col-sm-4 categoryButtons-cols">
+          <b-button
+            class="categoryButtons-button"
+            :class="{ 'change-background': filter === 'Snowboard' }"
+            pill
+            variant="outline-dark"
+            @click="assignFilter('Snowboard')"
+          >
+            <span class="d-flex align-items-center"
+              ><mdicon
+                name="snowboard"
+                size="24"
+                class="categoryButtons-icon"
+              />Snowboard</span
+            ></b-button
+          ></b-col
+        ><b-col class="col col-xl col-md-2 col-sm-4 categoryButtons-cols">
           <b-button
             class="categoryButtons-button"
             :class="{ 'change-background': filter === 'Paddle' }"

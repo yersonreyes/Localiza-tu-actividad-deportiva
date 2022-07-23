@@ -14,23 +14,27 @@
     <div>
       <h1></h1>
       <div class="container fluid">
-        <h3
-          class="eventsCards-Title my-5"
+        <h1
+          class="eventscards-categorytitle my-5"
           v-if="searchData === '' && filter === filter"
         >
           Categorías
-        </h3>
+        </h1>
         <div v-show="searchData">
-          <div>
-            <h3 class="eventsCards-Title my-5 d-inline-flex">
+          <div class="my-5">
+            <p class="eventscards-searchtitle">
               Resultados para la búsqueda: "{{ searchData }}"
-              <b-button class="mx-2" pill variant="dark" @click="resetSearch"
-                >Realizar una nueva búsqueda</b-button
-              >
-            </h3>
+            </p>
+            <b-button
+              class="eventscards-newsearch btn-dark"
+              size="sm"
+              @click="clearSearch"
+            >
+              Realizar nueva búsqueda
+            </b-button>
           </div>
         </div>
-        <div class="row row-cols-1 row-cols-md-3 gx-4">
+        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-3 gx-4">
           <div
             class="col col-xl-3 col-lg-4 col-md-6 col-sm-12 eventsCards-cards"
             v-for="(event, index) in filteredByCategory"
@@ -97,7 +101,7 @@ export default {
     setLocationFilter(value) {
       this.locationFilter = value;
     },
-    resetSearch() {
+    clearSearch() {
       this.filter = "";
       this.searchData = "";
       this.locationFilter = "";
@@ -106,22 +110,30 @@ export default {
 };
 </script>
 <style scoped>
-.eventsCards-Title {
+.eventscards-categorytitle {
   font-family: "Inter";
   font-style: normal;
   font-weight: 600;
   font-size: 33px;
   text-align: left;
 }
+.eventscards-searchtitle {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  text-align: left;
+}
+.eventscards-newsearch {
+  cursor: pointer;
+  text-align: left;
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 14px;
+}
 /* * {
   font-family: "Inter";
   font-weight: 400;
   font-size: 14px;
 } */
-
-@media (max-width: 576px) {
-  .eventsCards-cards {
-    margin-left: 3rem;
-  }
-}
 </style>

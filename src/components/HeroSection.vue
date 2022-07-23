@@ -1,13 +1,15 @@
 <template>
-  <vueper-slides fade :touchable="false">
-    <vueper-slide
-      v-for="(slide, i) in slides"
-      :key="i"
-      :title="slide.title"
-      :content="slide.content"
-      :image="slide.image"
-    />
-  </vueper-slides>
+  <div class="d-none d-md-block">
+    <vueper-slides fade :touchable="false">
+      <vueper-slide
+        v-for="(slide, i) in slides"
+        :key="i"
+        :title="slide.title"
+        :content="slide.content"
+        :image="slide.image"
+      />
+    </vueper-slides>
+  </div>
 </template>
 
 <script>
@@ -51,9 +53,11 @@ export default {
   z-index: 3;
   font-size: 45px;
   font-weight: 600;
+  margin-left: 30px;
 }
 .vueperslide__content {
   max-width: 45%;
   text-align: left;
+  margin-left: 30px;
 }
 </style>

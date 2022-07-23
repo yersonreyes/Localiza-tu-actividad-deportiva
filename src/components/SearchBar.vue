@@ -1,26 +1,22 @@
 <template>
   <div>
-    <b-form @submit="onSubmit">
+    <b-form @submit.prevent="onSubmit">
       <b-row class="my-5 mx-auto" align-h="center">
         <b-input-group class="content-styling">
-          <b-input-group-prepend class="btn-outline-secondary">
-            <!-- <b-form-select
-              v-model="locationFilter"
-              :options="options"
-              class="d-flex primary"
-              size="lg"
-            >
-            </b-form-select> -->
+          <b-input-group-prepend
+            class="btn-outline-secondary searchbar-dropdown"
+          >
             <b-dropdown
               size="lg"
               :text="locationFilter"
               variant="outline-secondary"
-              class="btn-softgrey btn-outline-secondary"
+              class="btn-softgrey btn-outline-secondary searchbar-dropdown"
             >
-              <b-dropdown-item disabled value="0"
+              <b-dropdown-item disabled value="0" class="searchbar-dropdown"
                 >Elije una región</b-dropdown-item
               >
               <b-dropdown-item
+                class="searchbar-dropdown"
                 v-for="option in regiones.options"
                 :key="option.value"
                 :value="option.value"
@@ -36,7 +32,7 @@
             id="input-large"
             size="lg"
             placeholder="¿Qué actividad buscas?"
-            class="text-style"
+            class="text-style searchbar-input"
             ref="formReset"
             required
           ></b-form-input>
@@ -179,4 +175,13 @@ export default {
   font-size: 16px !important;
   font-weight: 600 !important;
 }
+
+@media (max-width: 576px) {
+  .searchbar-dropdown {
+    width: 100%;
+  }
+  .searchbar-input {
+    width: 100%;
+  }
+} ;
 </style>
