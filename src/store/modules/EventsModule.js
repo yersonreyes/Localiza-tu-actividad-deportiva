@@ -24,4 +24,10 @@ export const eventsModule = {
       });
     },
   },
+  getters: {
+    getEventById: (state) => (id) => {
+      const event = state.events.find((item) => item.id === id);
+      return event;
+    },
+  },
 };
