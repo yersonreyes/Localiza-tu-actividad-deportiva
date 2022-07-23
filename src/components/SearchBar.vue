@@ -4,14 +4,30 @@
       <b-row class="my-5 mx-auto" align-h="center">
         <b-input-group class="content-styling">
           <b-input-group-prepend class="btn-outline-secondary">
+            <!-- <b-form-select
+              v-model="locationFilter"
+              :options="options"
+              class="d-flex primary"
+              size="lg"
+            >
+            </b-form-select> -->
             <b-dropdown
               size="lg"
-              text="Santiago"
+              :text="locationFilter"
               variant="outline-secondary"
               class="btn-softgrey btn-outline-secondary"
             >
-              <b-dropdown-item>Action A</b-dropdown-item>
-              <b-dropdown-item>Action B</b-dropdown-item>
+              <b-dropdown-item disabled value="0"
+                >Elije una región</b-dropdown-item
+              >
+              <b-dropdown-item
+                v-for="option in regiones.options"
+                :key="option.value"
+                :value="option.value"
+                @click="locationFilter = option.value"
+              >
+                {{ option.text }}</b-dropdown-item
+              >
             </b-dropdown>
           </b-input-group-prepend>
           <b-form-input
@@ -22,6 +38,7 @@
             placeholder="¿Qué actividad buscas?"
             class="text-style"
             ref="formReset"
+            required
           ></b-form-input>
 
           <b-input-group-append>
@@ -44,12 +61,78 @@ export default {
   name: "SearchBar",
   data: () => ({
     searchData: "",
+    locationFilter: "Región Metropolitana",
+    regiones: {
+      options: [
+        {
+          value: "Región Metropolitana",
+          text: "Región Metropolitana",
+        },
+        {
+          value: "Región de Arica y Parinacota",
+          text: "Región de Arica y Parinacota",
+        },
+        {
+          value: "Región de Tarapacá",
+          text: "Región de Tarapacá",
+        },
+        {
+          value: "Región de Atacama",
+          text: "Región de Atacama",
+        },
+        {
+          value: "Región de Coquimbo",
+          text: "Región de Coquimbo",
+        },
+        {
+          value: "Región de Valparaíso",
+          text: "Región de Valparaíso",
+        },
+        {
+          value: "Región de O'Higgins",
+          text: "Región de O'Higgins",
+        },
+        {
+          value: "Región del Maule",
+          text: "Región del Maule",
+        },
+        {
+          value: "Región de Ñuble",
+          text: "Región de Ñuble",
+        },
+        {
+          value: "Región del Bíobío",
+          text: "Región del Bíobío",
+        },
+        {
+          value: "Región de la Araucanía",
+          text: "Región de la Araucanía",
+        },
+        {
+          value: "Región de los Ríos",
+          text: "Región de los Ríos",
+        },
+        {
+          value: "Región de los Lagos",
+          text: "Región de los Lagos",
+        },
+        {
+          value: "Región de Aysén",
+          text: "Región de Aysén",
+        },
+        {
+          value: "Región de Magallanes",
+          text: "Región de Magallanes",
+        },
+      ],
+    },
   }),
   props: ["events"],
   methods: {
     onSubmit(event) {
       event.target.reset();
       this.$emit("getSearchData", this.searchData);
+      this.$emit("getLocationFilter", this.locationFilter);
       console.log(this.searchData);
     },
   },

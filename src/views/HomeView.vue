@@ -2,8 +2,12 @@
   <div>
     <HeroSection />
 
-    <SearchBar :events="events" @getSearchData="setSearchData" />
-    <div v-if="searchData === ''">
+    <SearchBar
+      :events="events"
+      @getSearchData="setSearchData"
+      @getLocationFilter="setLocationFilter"
+    />
+    <div v-if="searchData === '' && locationFilter === ''">
       <CategoryButtons @getFilters="setFilter" />
     </div>
     <!-- Tarjetas con los eventos -->
@@ -52,6 +56,7 @@ export default {
   data: () => ({
     searchData: "",
     filter: "",
+    locationFilter: "",
   }),
   mounted() {
     this.getAllEvents();
@@ -59,14 +64,12 @@ export default {
   computed: {
     ...mapState("events", ["events"]),
     filteredByCategory() {
-      // if (this.filter === "" && this.searchData === "") {
-      //   return this.events; }
       if (this.filter === "" && this.searchData === this.searchData) {
-        return this.events.filter((event) =>
-          event.name.toLowerCase().match(this.searchData.toLowerCase())
+        return this.events.filter(
+          (event) =>
+            event.name.toLowerCase().match(this.searchData.toLowerCase()) &&
+            event.region.toLowerCase().match(this.locationFilter.toLowerCase())
         );
-        // } else if (this.filter === "" && this.searchData === this.searchData) {
-        //   return this.filter;
       } else if (this.searchData === "" && this.filter === this.filter) {
         return this.events.filter((event) => event.category === this.filter);
       } else if (
@@ -91,9 +94,13 @@ export default {
     setSearchData(value) {
       this.searchData = value;
     },
+    setLocationFilter(value) {
+      this.locationFilter = value;
+    },
     resetSearch() {
       this.filter = "";
       this.searchData = "";
+      this.locationFilter = "";
     },
   },
 };

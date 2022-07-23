@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/LoginView.vue";
 import RegisterView from "../views/RegisterView.vue";
+import EventDetailsView from "../views/EventDetailsView.vue";
 import Store from "@/store/";
 
 Vue.use(VueRouter);
@@ -40,6 +41,15 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+    meta: {
+      accessLevel: "public",
+    },
+  },
+  {
+    path: "/events/:id",
+    name: "events",
+    props: true,
+    component: EventDetailsView,
     meta: {
       accessLevel: "public",
     },

@@ -10,9 +10,14 @@
 
       <b-card-body>
         <div class="d-flex justify-content-between eventsCards-title">
-          <b-card-title class="eventsCards-cardTitle">{{
-            event.name
-          }}</b-card-title>
+          <router-link
+            style="text-decoration: none; color: inherit"
+            :to="`/events/${event.id}`"
+          >
+            <b-card-title class="eventsCards-cardTitle">{{
+              event.name
+            }}</b-card-title>
+          </router-link>
           <b-card-title class="eventsCards-cardTitle-eventScore"
             ><b-icon
               class="eventsCards-cardTitle-eventScore-icon"
