@@ -13,6 +13,7 @@ export default {
   async mounted() {
     await this.$store.dispatch("session/subscribeToAuthStateChange");
     await this.$store.dispatch("session/getUser");
+    await this.$store.dispatch("events/getEvents");
   },
 };
 </script>
