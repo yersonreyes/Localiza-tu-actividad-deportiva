@@ -11,6 +11,10 @@ export const eventsModule = {
       state.events = events;
     },
 
+    ADD_EVENT(state, newEvent) {
+      state.events.push(newEvent);
+    },
+
     SET_LOADING(state, newLoading) {
       state.loading = newLoading;
     },
@@ -31,11 +35,8 @@ export const eventsModule = {
 
     async addEvent({ commit }, newEvent) {
       commit("SET_LOADING", true);
-      const docRef = await addDoc(collection(db, "cities"), {
-        name: newEvent.name,
-        country: newEvent.region,
-      });
-      console.log("Document written with ID: ", docRef.id);
+      const docRef = await addDoc(collection(db, "events"), newEvent);
+      newEvent.id = docRef.id;
       commit("SET_LOADING", false);
     },
   },

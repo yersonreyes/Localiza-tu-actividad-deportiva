@@ -1,148 +1,150 @@
 <template>
   <div class="container">
-    <h1>Crear evento</h1>
+    <div class="row">
+      <div class="col-sm-12 col-lg-9 col-xl-6">
+        <h1>Crear evento</h1>
 
-    <b-form @submit.prevent="CreateEvent" class="login-form-container">
-      <div>
-        <b-img
-          src="https://picsum.photos/1024/400/?image=41"
-          fluid
-          alt="Responsive image"
-        ></b-img>
+        <div class="img-container">
+          <b-img :src="form.img" fluid alt="Responsive image"></b-img>
+          <label class="btn btn-primary img-label" for="img-input"
+            >Subir portada</label
+          >
+          <input type="file" id="img-input" />
+        </div>
+        <b-form @submit.prevent="CreateEvent" class="login-form-container">
+          <b-form-group
+            id="input-group-1"
+            label="Nombre del evento"
+            label-for="input-1"
+            class="event-Text"
+          >
+            <b-form-input
+              v-model="form.name"
+              id="input-1"
+              type="text"
+              placeholder="Ej. Clase de Crossfit"
+              required
+            ></b-form-input>
+          </b-form-group>
 
-        <input type="file" />
+          <b-form-group
+            id="input-group-2"
+            label=" Descripción "
+            label-for="input-2"
+            class="event-Text"
+          >
+            <b-form-textarea
+              v-model="form.desc"
+              id="input-group-2"
+              placeholder="Agregar una descripción para tu evento..."
+              rows="3"
+              max-rows="6"
+            ></b-form-textarea>
+          </b-form-group>
+
+          <b-form-group
+            id="input-group-3"
+            label="Precio"
+            label-for="input-3"
+            class="event-Text"
+          >
+            <b-form-input
+              v-model="form.price"
+              id="input-3"
+              type="text"
+              placeholder="$"
+              required
+            ></b-form-input>
+          </b-form-group>
+
+          <b-form-group
+            id="input-group-4"
+            label=" ¿Qué incluye el evento?"
+            label-for="input-4"
+            class="event-Text"
+          >
+            <b-form-textarea
+              v-model="form.priceInclude"
+              id="input-4"
+              placeholder="Indica que incluye el evento"
+              rows="3"
+              max-rows="6"
+            ></b-form-textarea>
+          </b-form-group>
+
+          <b-form-group
+            id="input-group-5"
+            label="Cupos disponibles"
+            label-for="input-5"
+            class="event-Text"
+          >
+            <b-form-spinbutton
+              id="input-5"
+              v-model="form.cupos"
+              inline
+            ></b-form-spinbutton>
+          </b-form-group>
+
+          <b-form-group
+            id="input-group-6"
+            label="Fecha"
+            label-for="input-6"
+            class="event-Text"
+          >
+            <b-form-input
+              v-model="form.date"
+              id="input-6"
+              type="date"
+            ></b-form-input>
+          </b-form-group>
+
+          <b-form-group
+            id="input-group-7"
+            label="Dirección"
+            label-for="input-7"
+            class="event-Text"
+          >
+            <b-form-input
+              v-model="form.place"
+              id="input-7"
+              type="text"
+              placeholder="Ej. Av. Siempre Viva"
+              required
+            ></b-form-input>
+          </b-form-group>
+
+          <b-form-group
+            id="input-group-8"
+            label="Ciudad"
+            label-for="input-8"
+            class="event-Text"
+          >
+            <b-form-input
+              v-model="form.city"
+              id="input-8"
+              type="text"
+              placeholder="Ej. Santiago"
+              required
+            ></b-form-input>
+          </b-form-group>
+
+          <b-form-group
+            id="input-group-9"
+            label="Regíon"
+            label-for="input-9"
+            class="event-Text"
+          >
+            <b-form-select
+              class="select"
+              v-model="form.region"
+              :options="options"
+            ></b-form-select>
+          </b-form-group>
+
+          <b-button type="submit" variant="primary">Ingresar</b-button>
+        </b-form>
       </div>
-      <b-form-group
-        id="input-group-1"
-        label="Nombre del evento"
-        label-for="input-1"
-        class="event-Text"
-      >
-        <b-form-input
-          v-model="form.name"
-          id="input-1"
-          type="text"
-          placeholder="Ej. Clase de Crossfit"
-          required
-        ></b-form-input>
-      </b-form-group>
-
-      <b-form-group
-        id="input-group-2"
-        label=" Descripción "
-        label-for="input-2"
-        class="event-Text"
-      >
-        <b-form-textarea
-          v-model="form.desc"
-          id="input-group-2"
-          placeholder="Agregar una descripción para tu evento..."
-          rows="3"
-          max-rows="6"
-        ></b-form-textarea>
-      </b-form-group>
-
-      <b-form-group
-        id="input-group-3"
-        label="Precio"
-        label-for="input-3"
-        class="event-Text"
-      >
-        <b-form-input
-          v-model="form.price"
-          id="input-3"
-          type="text"
-          placeholder="$"
-          required
-        ></b-form-input>
-      </b-form-group>
-
-      <b-form-group
-        id="input-group-4"
-        label=" ¿Qué incluye el evento?"
-        label-for="input-4"
-        class="event-Text"
-      >
-        <b-form-textarea
-          v-model="form.priceInclude"
-          id="input-4"
-          placeholder="Indica que incluye el evento"
-          rows="3"
-          max-rows="6"
-        ></b-form-textarea>
-      </b-form-group>
-
-      <b-form-group
-        id="input-group-5"
-        label="Cupos disponibles"
-        label-for="input-5"
-        class="event-Text"
-      >
-        <b-form-spinbutton
-          id="input-5"
-          v-model="form.cupos"
-          inline
-        ></b-form-spinbutton>
-      </b-form-group>
-
-      <b-form-group
-        id="input-group-6"
-        label="Fecha"
-        label-for="input-6"
-        class="event-Text"
-      >
-        <b-form-input
-          v-model="form.date"
-          id="input-6"
-          type="date"
-        ></b-form-input>
-      </b-form-group>
-
-      <b-form-group
-        id="input-group-7"
-        label="Dirección"
-        label-for="input-7"
-        class="event-Text"
-      >
-        <b-form-input
-          v-model="form.place"
-          id="input-7"
-          type="text"
-          placeholder="Ej. Av. Siempre Viva"
-          required
-        ></b-form-input>
-      </b-form-group>
-
-      <b-form-group
-        id="input-group-8"
-        label="Ciudad"
-        label-for="input-8"
-        class="event-Text"
-      >
-        <b-form-input
-          v-model="form.city"
-          id="input-8"
-          type="text"
-          placeholder="Ej. Santiago"
-          required
-        ></b-form-input>
-      </b-form-group>
-
-      <b-form-group
-        id="input-group-9"
-        label="Regíon"
-        label-for="input-9"
-        class="event-Text"
-      >
-        <b-form-select
-          class="select"
-          v-model="form.region"
-          :options="options"
-        ></b-form-select>
-      </b-form-group>
-
-      <b-button type="submit" variant="primary">Ingresar</b-button>
-    </b-form>
+    </div>
   </div>
 </template>
 
@@ -153,7 +155,7 @@ export default {
     form: {
       name: "",
       desc: "",
-      img: "",
+      img: "https://res.cloudinary.com/dd3sndpg3/image/upload/v1658724230/Hero-template_b0vtby.png",
       place: "",
       price: "",
       priceInclude: "",
@@ -161,6 +163,7 @@ export default {
       date: "",
       city: null,
       region: null,
+      category: "crossfit",
     },
     options: [
       {
@@ -233,7 +236,24 @@ export default {
   methods: {
     ...mapActions("events", ["addEvent"]),
     async CreateEvent() {
-      await this.addEvent(this.form);
+      await this.addEvent({
+        name: this.form.name,
+        desc: this.form.desc,
+        img: this.form.img,
+        place: this.form.place,
+        price: this.form.price,
+        priceInclude: this.form.priceInclude,
+        cupos: this.form.cupos,
+        date: this.form.date,
+        city: this.form.city,
+        region: this.form.region,
+        category: this.form.category,
+        score: 4.3,
+        userName: this.user.name,
+        userLastName: this.user.lastName,
+        userEmail: this.user.email,
+      });
+      this.$router.push(`/`);
     },
   },
   computed: { ...mapState("session", ["user"]) },
@@ -267,5 +287,21 @@ export default {
   line-height: 1.5;
   color: #495057;
   vertical-align: middle;
+}
+
+.img-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+}
+.img-label {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, 0);
+}
+#img-input {
+  display: none;
 }
 </style>
