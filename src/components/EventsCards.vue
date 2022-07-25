@@ -9,7 +9,7 @@
           v-bind="imgProps"
           :src="event.img"
           img-top
-          style="width: 100%px; height: 100%px"
+          style="width: 100%; height: 100%"
         />
 
         <b-card-body>
