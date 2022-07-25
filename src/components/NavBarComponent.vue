@@ -6,7 +6,7 @@
           <div class="logo-container">
             <img
               class="logo"
-              src="https://res.cloudinary.com/dd3sndpg3/image/upload/v1657931597/logo_xclfuc.png"
+              src="https://res.cloudinary.com/dd3sndpg3/image/upload/v1658690519/logofitmapp_zyql9t.png"
               alt=""
             />
             <p class="logo-title">fitmapp</p>
@@ -42,7 +42,7 @@
                 <b-icon icon="person-fill" aria-hidden="true"></b-icon>
                 Profile</b-dropdown-item
               >
-              <b-dropdown-item>
+              <b-dropdown-item @click="pushEvent">
                 <b-icon icon="plus-lg" aria-hidden="true"></b-icon>
                 Publicar</b-dropdown-item
               >
@@ -76,6 +76,10 @@ export default {
 
     pushHome() {
       this.$router.push(`/`);
+    },
+
+    pushEvent() {
+      this.$router.push(`/event`);
     },
 
     verificateAvatar() {
@@ -116,11 +120,12 @@ export default {
 .logo-container {
   display: flex;
   align-items: center;
+  gap: 8px;
 }
 
 .logo {
-  width: 2rem;
-  height: 2rem;
+  width: 29px;
+  height: 38px;
 }
 
 .logo-title {

@@ -1,13 +1,22 @@
-import { collection, getDocs } from "firebase/firestore/lite";
+import { collection, getDocs, addDoc } from "firebase/firestore/lite";
 import { db } from "../../main";
 export const eventsModule = {
   namespaced: true,
   state: {
     events: [],
+    loading: false,
   },
   mutations: {
     GET_EVENTS(state, events) {
       state.events = events;
+    },
+
+    ADD_EVENT(state, newEvent) {
+      state.events.push(newEvent);
+    },
+
+    SET_LOADING(state, newLoading) {
+      state.loading = newLoading;
     },
   },
   actions: {
@@ -22,6 +31,13 @@ export const eventsModule = {
         });
         commit("GET_EVENTS", events);
       });
+    },
+
+    async addEvent({ commit }, newEvent) {
+      commit("SET_LOADING", true);
+      const docRef = await addDoc(collection(db, "events"), newEvent);
+      newEvent.id = docRef.id;
+      commit("SET_LOADING", false);
     },
   },
   getters: {
