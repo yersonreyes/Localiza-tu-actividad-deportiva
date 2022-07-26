@@ -4,34 +4,33 @@
       style="text-decoration: none; color: inherit"
       :to="`/events/${event.id}`"
     >
-      <b-card no-body style="width: 100%; height: 100%" class="mb-5">
-        <b-img-lazy
-          v-bind="imgProps"
-          :src="event.img"
-          img-top
-          style="width: 100%; height: 100%"
-        />
+      <b-card no-body class="mb-5">
+        <b-img :src="event.img" img-top class="eventcards__img" />
 
         <b-card-body>
-          <div class="d-flex justify-content-between eventsCards-title">
-            <b-card-title class="eventsCards-cardTitle">{{
-              event.name
-            }}</b-card-title>
-
-            <b-card-title class="eventsCards-cardTitle-eventScore"
+          <div class="d-flex justify-content-between">
+            <div>
+              <b-card-title class="eventscards__title">{{
+                event.name
+              }}</b-card-title>
+            </div>
+            <b-card-title class="eventscards__card-title__score"
               ><b-icon
-                class="eventsCards-cardTitle-eventScore-icon"
+                class="eventscards__card-title__score-icon"
                 icon="star-fill"
                 style="color: #0f172a"
               ></b-icon
               >{{ event.score }}</b-card-title
             >
           </div>
-          <b-card-title class="d-flex text-left eventsCards-eventPrice">
+          <b-card-title class="d-flex text-left eventscards__price">
             {{ event.price }}
           </b-card-title>
-          <b-card-title class="d-flex text-left eventsCards-eventPlace">
-            {{ event.place }}
+          <b-card-title class="d-flex text-left eventscards__place">
+            {{ event.address }}
+          </b-card-title>
+          <b-card-title class="d-flex text-left eventscards__place">
+            {{ event.comun }}, {{ event.city }}
           </b-card-title>
         </b-card-body>
       </b-card>
@@ -49,8 +48,6 @@ export default {
         fluidGrow: true,
         blank: true,
         blankColor: "#bbb",
-        width: 300,
-        height: 195,
       },
     };
   },
@@ -58,33 +55,55 @@ export default {
 };
 </script>
 <style>
-.eventsCards-cardTitle {
+.eventscards__title {
   font-family: "Inter";
   font-style: normal;
   font-weight: 600;
   font-size: 16px;
+  max-width: 200px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
-.eventsCards-cardTitle-eventScore {
+.eventscards__card-title__score {
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   margin-top: 2px;
 }
-.eventsCards-cardTitle-eventScore-icon {
+.eventscards__card-title__score-icon {
   margin-right: 5px;
 }
-.eventsCards-eventPrice {
+.eventscards__price {
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   font-weight: bold;
 }
-.eventsCards-eventPlace {
+.eventscards__place {
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 13px;
+}
+.eventcards__img {
+  height: 200px;
+}
+@media (max-width: 768px) {
+  .eventcards__img {
+    height: 300px;
+  }
+}
+@media (max-width: 466px) {
+  .eventcards__img {
+    height: 250px;
+  }
+}
+@media (max-width: 354px) {
+  .eventcards__img {
+    height: 200px;
+  }
 }
 </style>

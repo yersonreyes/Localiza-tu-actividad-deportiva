@@ -2,9 +2,9 @@
   <div>
     <b-container class="d-flex justify-content-around">
       <b-row class="row">
-        <b-col class="col col-xl col-md-2 col-sm-4 categoryButtons-cols">
+        <b-col class="col col-xl col-md-2 col-sm-4 categorybuttons__cols">
           <b-button
-            class="categoryButtons-button"
+            class="categorybuttons__button"
             :class="{ 'change-background': filter === 'Football' }"
             pill
             variant="outline-dark"
@@ -19,9 +19,9 @@
             ></b-button
           >
         </b-col>
-        <b-col class="col col-xl col-md-2 col-sm-4 categoryButtons-cols">
+        <b-col class="col col-xl col-md-2 col-sm-4 categorybuttons__cols">
           <b-button
-            class="categoryButtons-button"
+            class="categorybuttons__button"
             :class="{ 'change-background': filter === 'Trekking' }"
             pill
             variant="outline-dark"
@@ -36,9 +36,9 @@
             ></b-button
           ></b-col
         >
-        <b-col class="col col-xl col-md-2 col-sm-4 categoryButtons-cols">
+        <b-col class="col col-xl col-md-2 col-sm-4 categorybuttons__cols">
           <b-button
-            class="categoryButtons-button"
+            class="categorybuttons__button"
             :class="{ 'change-background': filter === 'Tennis' }"
             pill
             variant="outline-dark"
@@ -52,9 +52,9 @@
               />Tenis</span
             ></b-button
           ></b-col
-        ><b-col class="col col-xl col-md-2 col-sm-4 categoryButtons-cols">
+        ><b-col class="col col-xl col-md-2 col-sm-4 categorybuttons__cols">
           <b-button
-            class="categoryButtons-button"
+            class="categorybuttons__button"
             :class="{ 'change-background': filter === 'Crossfit' }"
             pill
             variant="outline-dark"
@@ -69,9 +69,9 @@
             ></b-button
           ></b-col
         >
-        <b-col class="col col-xl col-md-2 col-sm-4 categoryButtons-cols">
+        <b-col class="col col-xl col-md-2 col-sm-4 categorybuttons__cols">
           <b-button
-            class="categoryButtons-button"
+            class="categorybuttons__button"
             :class="{ 'change-background': filter === 'Calisthenics' }"
             pill
             variant="outline-dark"
@@ -86,9 +86,9 @@
             ></b-button
           ></b-col
         >
-        <b-col class="col col-xl col-md-2 col-sm-4 categoryButtons-cols">
+        <b-col class="col col-xl col-md-2 col-sm-4 categorybuttons__cols">
           <b-button
-            class="categoryButtons-button"
+            class="categorybuttons__button"
             :class="{ 'change-background': filter === 'Surf' }"
             pill
             variant="outline-dark"
@@ -102,9 +102,9 @@
               />Surf</span
             ></b-button
           ></b-col
-        ><b-col class="col col-xl col-md-2 col-sm-4 categoryButtons-cols">
+        ><b-col class="col col-xl col-md-2 col-sm-4 categorybuttons__cols">
           <b-button
-            class="categoryButtons-button"
+            class="categorybuttons__button"
             :class="{ 'change-background': filter === 'Swimming' }"
             pill
             variant="outline-dark"
@@ -119,9 +119,9 @@
             ></b-button
           ></b-col
         >
-        <b-col class="col col-xl col-md-2 col-sm-4 categoryButtons-cols">
+        <b-col class="col col-xl col-md-2 col-sm-4 categorybuttons__cols">
           <b-button
-            class="categoryButtons-button"
+            class="categorybuttons__button"
             :class="{ 'change-background': filter === 'Snowboard' }"
             pill
             variant="outline-dark"
@@ -133,22 +133,6 @@
                 size="24"
                 class="categoryButtons-icon"
               />Snowboard</span
-            ></b-button
-          ></b-col
-        ><b-col class="col col-xl col-md-2 col-sm-4 categoryButtons-cols">
-          <b-button
-            class="categoryButtons-button"
-            :class="{ 'change-background': filter === 'Paddle' }"
-            pill
-            variant="outline-dark"
-            @click="assignFilter('Paddle')"
-          >
-            <span class="d-flex align-items-center"
-              ><mdicon
-                name="tennis"
-                size="24"
-                class="categoryButtons-icon"
-              />Padel</span
             ></b-button
           ></b-col
         >
@@ -189,7 +173,7 @@ export default {
   font-weight: 400;
   font-size: 14px;
 }
-.categoryButtons-button {
+.categorybuttons__button {
   border-color: lightgray;
 }
 .change-background {
@@ -197,12 +181,12 @@ export default {
   color: white;
   border-color: black;
 }
-.categoryButtons-button:focus {
+.categorybuttons__button:focus {
   outline: none;
   box-shadow: none;
 }
 
-.categoryButtons-cols {
+.categorybuttons__cols {
   margin-bottom: 5px;
 }
 </style>
