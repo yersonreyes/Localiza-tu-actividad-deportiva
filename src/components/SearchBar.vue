@@ -4,19 +4,19 @@
       <b-row class="my-5 mx-auto" align-h="center">
         <b-input-group class="content-styling">
           <b-input-group-prepend
-            class="btn-outline-secondary searchbar-dropdown"
+            class="btn-outline-secondary searchbar__dropdown"
           >
             <b-dropdown
               size="lg"
               :text="locationFilter"
               variant="outline-secondary"
-              class="btn-softgrey btn-outline-secondary searchbar-dropdown"
+              class="btn-softgrey btn-outline-secondary searchbar__dropdown"
             >
-              <b-dropdown-item disabled value="0" class="searchbar-dropdown"
+              <b-dropdown-item disabled value="0" class="searchbar__dropdown"
                 >Elije una región</b-dropdown-item
               >
               <b-dropdown-item
-                class="searchbar-dropdown"
+                class="searchbar__dropdown"
                 v-for="option in regiones.options"
                 :key="option.value"
                 :value="option.value"
@@ -32,7 +32,7 @@
             id="input-large"
             size="lg"
             placeholder="¿Qué actividad buscas?"
-            class="text-style searchbar-input"
+            class="text-style searchbar__input"
             ref="formReset"
             required
           ></b-form-input>
@@ -177,10 +177,10 @@ export default {
 }
 
 @media (max-width: 576px) {
-  .searchbar-dropdown {
+  .searchbar__dropdown {
     width: 100%;
   }
-  .searchbar-input {
+  .searchbar__input {
     width: 100%;
   }
 } ;
