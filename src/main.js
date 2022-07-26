@@ -17,6 +17,11 @@ import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 
+//Mapboxgl
+import mapboxgl from "mapbox-gl";
+mapboxgl.accessToken =
+  "pk.eyJ1IjoieWVyc29uZGV2IiwiYSI6ImNrbXVvaGI1dzEzbXYycG81OGE1aW1ndHoifQ.KbWYHPe1oIQFmkr8ofD6jg";
+
 //Material Design Icons
 
 import mdiVue from "mdi-vue";
