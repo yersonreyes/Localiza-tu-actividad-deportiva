@@ -1,14 +1,13 @@
 <template>
   <div>
-    <b-container fluid class="mt-4">
+    <b-container class="mt-4">
       <b-row>
         <b-col class="col">
           <!-- imagen en tamaño escritorio -->
           <b-container
             class="d-none d-sm-none d-md-block eventdetails__hero-section-wrapper"
-            fluid
           >
-            <b-container fluid class="eventdetails__hero-section-info-wrapper"
+            <b-container class="eventdetails__hero-section-info-wrapper"
               ><p class="eventdetails__hero-section-info-title">
                 {{ event.name }}
               </p>
@@ -37,7 +36,7 @@
         </b-col>
       </b-row>
     </b-container>
-    <b-container fluid class="eventdetails__info-wrapper">
+    <b-container class="eventdetails__info-wrapper">
       <b-row>
         <!-- Información de evento -->
         <b-col sm="12" md="12" lg="9" xl="9">
@@ -67,7 +66,12 @@
           </div>
           <div>
             <h5 class="eventdetails__title my-3">¿Cómo llegar?</h5>
-            <p class="eventdetails__text my-3">AQUI VA EL MAPA</p>
+            <MapComponent
+              :city="event.city"
+              :address="event.address"
+              :region="event.region"
+              :comun="event.comun"
+            />
             <hr class="eventdetails__separator" />
           </div>
           <div>
@@ -107,13 +111,7 @@
                     <div class="my-2">
                       <p class="eventdetails__text">Incluye</p>
                       <li class="eventdetails__card-list-text">
-                        Lorem ipsum dolor.
-                      </li>
-                      <li class="eventdetails__card-list-text">
-                        Lorem ipsum dolor.
-                      </li>
-                      <li class="eventdetails__card-list-text">
-                        Lorem ipsum dolor.
+                        {{ event.priceInclude }}
                       </li>
                     </div>
                   </b-col>
@@ -144,8 +142,10 @@
 </template>
 
 <script>
+import MapComponent from "@/components/MapComponent.vue";
 import { mapGetters } from "vuex";
 export default {
+  components: { MapComponent },
   name: "EventDetailsView",
   props: ["id"],
   computed: {
