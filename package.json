@@ -15,6 +15,7 @@
     "bootstrap-vue": "^2.22.0",
     "core-js": "^3.8.3",
     "firebase": "^9.1.1",
+    "mapbox-gl": "^2.9.2",
     "mdi-vue": "^3.0.13",
     "vue": "^2.7.3",
     "vue-router": "^3.5.1",

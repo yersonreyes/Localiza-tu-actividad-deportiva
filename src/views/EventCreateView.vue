@@ -295,6 +295,7 @@ export default {
           cupos: this.event.cupos,
           date: this.event.date,
           address: this.event.address,
+          comun: this.event.comun,
           city: this.event.city,
           region: this.event.region,
           category: this.event.category,

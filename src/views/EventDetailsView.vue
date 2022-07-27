@@ -1,38 +1,33 @@
 <template>
   <div>
-    <b-container class="mt-4">
+    <b-container
+      class="mt-4 d-none d-sm-none d-md-block eventdetails__hero-section"
+      :style="{ backgroundImage: `url(${event.img})` }"
+    >
       <b-row>
         <b-col class="col">
           <!-- imagen en tamaño escritorio -->
-          <b-container
-            class="d-none d-sm-none d-md-block eventdetails__hero-section-wrapper"
-          >
+          <b-container class="eventdetails__hero-section-wrapper">
             <b-container class="eventdetails__hero-section-info-wrapper"
-              ><p class="eventdetails__hero-section-info-title">
+              ><b-card-title class="eventdetails__hero-section-info-title">
                 {{ event.name }}
-              </p>
-              <p class="eventdetails__hero-section-info-subtitle">
-                {{ event.place }}
-              </p>
+              </b-card-title>
+              <b-card-title class="eventdetails__hero-section-info-subtitle">
+                {{ event.address }}, {{ event.city }}, {{ event.region }}
+              </b-card-title>
               <p class="eventdetails__hero-section-info">
                 {{ event.creator }}
               </p></b-container
             >
-            <b-img
-              class="eventdetails__hero-section-img"
-              :src="event.img"
-              rounded
-            ></b-img>
           </b-container>
           <!-- imagen en tamaño mobile -->
-          <b-img
-            class="d-block d-sm-block d-md-none"
-            fluid
-            :src="event.img"
-            rounded
-          >
-            ></b-img
-          >
+        </b-col>
+      </b-row>
+    </b-container>
+    <b-container class="d-block d-sm-block d-md-none">
+      <b-row>
+        <b-col class="col">
+          <b-img fluid :src="event.img" rounded> ></b-img>
         </b-col>
       </b-row>
     </b-container>
@@ -42,7 +37,9 @@
         <b-col sm="12" md="12" lg="9" xl="9">
           <div class="d-block d-sm-block d-md-none">
             <h5 class="eventdetails__title mb-3">{{ event.name }}</h5>
-            <p class="eventdetails__text">{{ event.place }}</p>
+            <p class="eventdetails__text">
+              {{ event.address }}, {{ event.comun }}, {{ event.city }}
+            </p>
             <div class="d-flex justify-content-between">
               <p class="eventdetails__text">{{ event.creator }}</p>
               <div>
@@ -61,7 +58,9 @@
           </div>
           <div>
             <h5 class="eventdetails__title my-3">Cupos disponibles</h5>
-            <p class="eventdetails__text my-3">6 disponibles</p>
+            <p class="eventdetails__text my-3">
+              {{ event.cupos }} disponible/s
+            </p>
             <hr class="eventdetails__separator" />
           </div>
           <div>
@@ -76,7 +75,20 @@
           </div>
           <div>
             <h5 class="eventdetails__title my-3">Comentarios</h5>
-            <p class="eventdetails__text my-3">COMENTARIOS</p>
+            <b-form>
+              <b-form-textarea
+                id="textarea"
+                v-model="comment"
+                placeholder="Agrega un nuevo comentario..."
+                rows="3"
+                max-rows="6"
+              ></b-form-textarea>
+              <div class="d-flex justify-content-end">
+                <b-button variant="primary" class="my-3"
+                  >Enviar comentario</b-button
+                >
+              </div>
+            </b-form>
           </div>
         </b-col>
         <!-- Price card -->
@@ -162,11 +174,6 @@ export default {
 * {
   font-family: "Inter";
 }
-.img {
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-}
 .eventdetails__title {
   font-weight: 600;
   font-size: 20px;
@@ -196,6 +203,12 @@ export default {
 .eventdetails__card-list-button {
   font-size: 12px;
 }
+.eventdetails__hero-section {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 5px;
+}
 .eventdetails__hero-section-wrapper {
   width: 100%;
   height: 400px;
@@ -207,8 +220,15 @@ export default {
 }
 .eventdetails__hero-section-info-wrapper {
   position: absolute;
-  width: 100%;
-  top: 220px;
+  width: 1440px;
+  top: 302px;
+  left: -12px;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(249, 249, 249, 0) 100%
+  );
+  border-radius: 5px;
 }
 .eventdetails__hero-section-info-title {
   font-size: 48px;
@@ -224,11 +244,5 @@ export default {
   object-fit: cover;
   width: 100%;
   max-height: 400px;
-  background: linear-gradient(
-    90deg,
-    rgba(2, 0, 36, 1) 100%,
-    rgba(9, 9, 121, 1) 31%,
-    rgba(0, 212, 255, 1) 100%
-  );
 }
 </style>
