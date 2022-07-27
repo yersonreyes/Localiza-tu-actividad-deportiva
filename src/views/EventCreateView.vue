@@ -1,37 +1,34 @@
 <template>
   <div class="container">
     <b-container class="my-5">
-      <div class="row">
+      <div class="row container-row">
         <div class="col-sm-12 col-lg-9 col-xl-6">
           <h1>Crear evento</h1>
-          <div class="mt-4">
-            <h5 class="d-flex justify-content-start">
-              Sube una imagen para tu evento
-            </h5>
-            <b-img
-              :src="selectedImg"
-              fluid
-              class="eventcreateview__preview-img my-3"
-            />
-          </div>
 
           <b-form @submit.prevent="CreateEvent()" class="login-form-container">
             <div class="img-container">
-              <b-img fluid></b-img>
-              <div class="input-group">
-                <input
-                  required
-                  label="a"
-                  type="file"
-                  @change="selectImg($event)"
-                />
-              </div>
+              <b-img
+                v-if="selectedImg"
+                :src="selectedImg"
+                fluid
+                class="eventcreateview__preview-img my-3"
+              />
+
+              <label class="btn btn-primary img-label" for="img-input">
+                Cargar foto
+              </label>
+              <input
+                id="img-input"
+                required
+                type="file"
+                @change="selectImg($event)"
+              />
             </div>
             <b-form-group
               id="input-group-1"
               label="Nombre del evento"
               label-for="input-1"
-              class="event-Text"
+              class="event-Text width70"
             >
               <b-form-input
                 v-model="event.name"
@@ -61,7 +58,7 @@
               id="input-group-3"
               label="Precio"
               label-for="input-3"
-              class="event-Text"
+              class="event-Text width70"
             >
               <b-form-input
                 v-model="event.price"
@@ -104,7 +101,7 @@
               id="input-group-6"
               label="Fecha"
               label-for="input-6"
-              class="event-Text"
+              class="event-Text width40"
             >
               <b-form-input
                 v-model="event.date"
@@ -117,7 +114,7 @@
               id="input-group-7"
               label="Dirección"
               label-for="input-7"
-              class="event-Text"
+              class="event-Text width70"
             >
               <b-form-input
                 v-model="event.address"
@@ -132,7 +129,7 @@
               id="input-group-8"
               label="Ciudad"
               label-for="input-8"
-              class="event-Text"
+              class="event-Text width70"
             >
               <b-form-input
                 v-model="event.city"
@@ -146,7 +143,7 @@
               id="input-group-8"
               label="Comuna"
               label-for="input-8"
-              class="event-Text"
+              class="event-Text width70"
             >
               <b-form-input
                 v-model="event.comun"
@@ -160,7 +157,7 @@
               id="input-group-9"
               label="Región"
               label-for="input-9"
-              class="event-Text"
+              class="event-Text width70"
             >
               <b-form-select
                 class="select"
@@ -169,7 +166,37 @@
               ></b-form-select>
             </b-form-group>
 
-            <b-button type="submit" variant="primary">Ingresar</b-button>
+            <b-form-group
+              id="input-group-10"
+              label="Categoria"
+              label-for="input-10"
+              class="event-Text width70"
+            >
+              <b-form-select
+                class="select"
+                v-model="event.category"
+                :options="categoryOption"
+              ></b-form-select>
+            </b-form-group>
+
+            <div class="button-container">
+              <b-button
+                @click="pushHome"
+                type="button"
+                variant="outline-primary"
+                >Cancelar</b-button
+              >
+              <b-button type="submit" variant="primary">Guardar</b-button>
+            </div>
+            <div class="button-container button-top">
+              <b-button
+                @click="pushHome"
+                type="button"
+                variant="outline-primary"
+                >Cancelar</b-button
+              >
+              <b-button type="submit" variant="primary">Guardar</b-button>
+            </div>
           </b-form>
         </div>
       </div>
@@ -180,7 +207,7 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import { db, storageRef } from "../main";
-import { addDoc, collection, getDocs } from "firebase/firestore/lite";
+import { addDoc, collection } from "firebase/firestore/lite";
 import router from "@/router";
 export default {
   data: () => ({
@@ -195,11 +222,11 @@ export default {
       address: "",
       comun: "",
       city: "",
-      region: "",
-      category: "crossfit",
+      region: null,
+      category: null,
     },
     img: "",
-    selectedImg: "",
+    selectedImg: false,
     options: [
       {
         value: null,
@@ -266,19 +293,53 @@ export default {
         text: "Región de Magallanes",
       },
     ],
+
+    categoryOption: [
+      {
+        value: null,
+        text: "Seleccione una opción",
+      },
+      {
+        value: "soccer",
+        text: "Football",
+      },
+      {
+        value: "Trekking",
+        text: "Trekking",
+      },
+      {
+        value: "Tennis",
+        text: "Tennis",
+      },
+      {
+        value: "Crossfit",
+        text: "Crossfit",
+      },
+      {
+        value: "Calisthenics",
+        text: "Calistenia",
+      },
+      {
+        value: "Surf",
+        text: "Surf",
+      },
+      {
+        value: "Swimming",
+        text: "Natación",
+      },
+      {
+        value: "Snowboard",
+        text: "Snowboard",
+      },
+      {
+        value: "Otro",
+        text: "Otro",
+      },
+    ],
   }),
 
   methods: {
     ...mapActions("events", ["addEvent"]),
-    async getEvents() {
-      const querySnapshot = await getDocs(collection(db, "events"));
-      querySnapshot.forEach((doc) => {
-        let event = doc.data();
-        event.id = doc.id;
-        this.events.push(event);
-        console.log(event);
-      });
-    },
     async CreateEvent() {
       try {
         await storageRef.child("images").child(this.img.name).put(this.img);
@@ -297,12 +358,14 @@ export default {
           address: this.event.address,
           comun: this.event.comun,
           city: this.event.city,
+          comun: this.event.comun,
           region: this.event.region,
           category: this.event.category,
-          score: 4.3,
+          score: "-",
           userName: this.user.name,
           userLastName: this.user.lastName,
           userEmail: this.user.email,
+          userAvatar: this.user.avatar,
         });
         this.error = "Imagen subida con éxito";
         this.file = null;
@@ -329,6 +392,10 @@ export default {
         this.selectedImg = e.target.result;
       };
     },
+
+    pushHome() {
+      router.push("/");
+    },
   },
   computed: { ...mapState("session", ["user"]) },
 };
@@ -339,8 +406,9 @@ export default {
   font-family: "Inter";
 }
 .eventcreateview__preview-img {
-  max-width: 75%;
-  max-height: 75%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .login-form-container {
   display: flex;
@@ -368,10 +436,16 @@ export default {
 }
 
 .img-container {
+  overflow: hidden;
   display: flex;
   justify-content: center;
   width: 100%;
+  height: 182px;
   position: relative;
+  flex-direction: column;
+  position: relative;
+  border-radius: 0.5rem;
+  background-color: #e2e8f0;
 }
 .img-label {
   position: absolute;
@@ -379,7 +453,46 @@ export default {
   top: 50%;
   transform: translate(-50%, 0);
 }
+
 #img-input {
   display: none;
+}
+
+.container-row {
+  position: relative;
+}
+
+.button-container {
+  display: flex;
+  gap: 1rem;
+  justify-content: end;
+}
+
+.button-top {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.width70 {
+  width: 70%;
+}
+
+.width40 {
+  width: 40%;
+}
+
+@media only screen and (max-width: 700px) {
+  .width70 {
+    width: 100%;
+  }
+
+  .width40 {
+    width: 100%;
+  }
+
+  .button-top {
+    display: none;
+  }
 }
 </style>
