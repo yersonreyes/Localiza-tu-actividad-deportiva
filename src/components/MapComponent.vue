@@ -2,7 +2,7 @@
   <div class="map-container">
     <div id="map"></div>
     <button v-if="cords" class="btn btn-primary mt-3" @click="paintRute">
-      Mostrar ruta mas directa
+      Mostrar ruta más directa
     </button>
   </div>
 </template>

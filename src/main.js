@@ -6,7 +6,7 @@ import store from "./store";
 //Firebase
 
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "@firebase/firestore/lite";
+import { getFirestore } from "firebase/firestore/lite";
 import { getAuth } from "firebase/auth";
 import firebase from "firebase/compat/app";
 import "firebase/compat/storage";
