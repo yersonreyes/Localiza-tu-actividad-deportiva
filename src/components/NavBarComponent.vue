@@ -38,7 +38,7 @@
                   {{ user.name + " " + user.lastName }}
                 </em>
               </template>
-              <b-dropdown-item>
+              <b-dropdown-item @click="pushProfile">
                 <b-icon icon="person-fill" aria-hidden="true"></b-icon>
                 Profile</b-dropdown-item
               >
@@ -80,6 +80,9 @@ export default {
 
     pushEvent() {
       this.$router.push(`/event`);
+    },
+    pushProfile() {
+      this.$router.push(`/profile`);
     },
 
     verificateAvatar() {

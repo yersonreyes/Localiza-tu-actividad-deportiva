@@ -108,13 +108,13 @@
             :class="{ 'change-background': filter === 'Swimming' }"
             pill
             variant="outline-dark"
+            @click="assignFilter('Swimming')"
           >
             <span class="d-flex align-items-center"
               ><mdicon
                 name="swim"
                 size="24"
                 class="categoryButtons-icon"
-                @click="assignFilter('Swimming')"
               />Natación</span
             ></b-button
           ></b-col

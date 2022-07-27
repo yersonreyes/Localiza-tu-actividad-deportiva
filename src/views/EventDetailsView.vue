@@ -133,6 +133,7 @@
                         variant="primary"
                         size="sm"
                         class="eventdetails__card-list-button"
+                        @click="createBooking"
                         >Reservar</b-button
                       >
                     </div>
@@ -155,17 +156,59 @@
 
 <script>
 import MapComponent from "@/components/MapComponent.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions, mapState } from "vuex";
+import { addDoc, collection } from "firebase/firestore/lite";
+import { db } from "../main";
+import router from "@/router";
 export default {
   components: { MapComponent },
   name: "EventDetailsView",
   props: ["id"],
+  data: () => ({
+    bookings: [],
+    booking: {
+      name: "",
+      desc: "",
+      price: "",
+      priceInclude: "",
+      cupos: "",
+      date: "",
+      address: "",
+      comun: "",
+      city: "",
+      region: "",
+      category: "",
+      img: "",
+      email: "",
+    },
+  }),
+  methods: {
+    ...mapActions("events", ["addEvent"]),
+    async createBooking() {
+      await addDoc(collection(db, "bookings"), {
+        name: this.event.name,
+        desc: this.event.desc,
+        img: this.event.img,
+        price: this.event.price,
+        cupos: this.event.cupos,
+        address: this.event.address,
+        city: this.event.city,
+        comun: this.event.comun,
+        region: this.event.region,
+        category: this.event.category,
+        email: this.user.email,
+        score: "-",
+      });
+      router.push("/");
+    },
+  },
   computed: {
     ...mapGetters("events", ["getEventById"]),
     event() {
       const { id } = this;
       return this.getEventById(id);
     },
+    ...mapState("session", ["user"]),
   },
 };
 </script>

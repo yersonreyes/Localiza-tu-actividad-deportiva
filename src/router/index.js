@@ -5,6 +5,7 @@ import LoginView from "../views/LoginView.vue";
 import RegisterView from "../views/RegisterView.vue";
 import EventDetailsView from "../views/EventDetailsView.vue";
 import EventCreateView from "../views/EventCreateView.vue";
+import UserProfileView from "../views/UserProfileView.vue";
 import Store from "@/store/";
 
 Vue.use(VueRouter);
@@ -62,6 +63,15 @@ const routes = [
     component: EventDetailsView,
     meta: {
       accessLevel: "public",
+    },
+  },
+  {
+    path: "/profile",
+    name: "profile",
+    props: true,
+    component: UserProfileView,
+    meta: {
+      accessLevel: "private",
     },
   },
 ];
