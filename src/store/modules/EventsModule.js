@@ -5,7 +5,6 @@ export const eventsModule = {
   state: {
     events: [],
     loading: false,
-    bookings: [],
   },
   mutations: {
     GET_EVENTS(state, events) {
@@ -14,13 +13,6 @@ export const eventsModule = {
 
     ADD_EVENT(state, newEvent) {
       state.events.push(newEvent);
-    },
-
-    ADD_BOOKING(state, newBooking) {
-      state.bookings.push(newBooking);
-    },
-    GET_BOOKING(state, bookings) {
-      state.bookings = bookings;
     },
 
     SET_LOADING(state, newLoading) {
@@ -45,24 +37,6 @@ export const eventsModule = {
       commit("SET_LOADING", true);
       const docRef = await addDoc(collection(db, "events"), newEvent);
       newEvent.id = docRef.id;
-      commit("SET_LOADING", false);
-    },
-    async getBookings({ commit }) {
-      const bookings = [];
-      await getDocs(collection(db, "bookings")).then((res) => {
-        res.forEach((doc) => {
-          let booking = doc.data();
-          booking.id = doc.id;
-          bookings.push(booking);
-        });
-        commit("GET_BOOKING", bookings);
-      });
-    },
-
-    async addBooking({ commit }, newBooking) {
-      commit("SET_LOADING", true);
-      const docRef = await addDoc(collection(db, "bookings"), newBooking);
-      newBooking.id = docRef.id;
       commit("SET_LOADING", false);
     },
   },

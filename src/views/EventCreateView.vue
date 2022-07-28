@@ -361,6 +361,7 @@ export default {
           region: this.event.region,
           category: this.event.category,
           score: "-",
+          reserva: [],
           userName: this.user.name,
           userLastName: this.user.lastName,
           userEmail: this.user.email,
