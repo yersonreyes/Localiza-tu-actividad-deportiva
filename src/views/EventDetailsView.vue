@@ -75,16 +75,17 @@
           </div>
           <div>
             <h5 class="eventdetails__title my-3">Comentarios</h5>
-            <b-form>
+            <b-form @submit.prevent="addReview()" v-if="userReviewed">
               <b-form-textarea
                 id="textarea"
-                v-model="comment"
+                required
+                v-model="review"
                 placeholder="Agrega un nuevo comentario..."
                 rows="3"
                 max-rows="6"
               ></b-form-textarea>
               <div class="d-flex justify-content-end">
-                <b-button variant="primary" class="my-3"
+                <b-button type="submit" variant="primary" class="my-3"
                   >Enviar comentario</b-button
                 >
               </div>
@@ -98,25 +99,6 @@
               <b-list-group-item class="eventdetails__text">
                 Precio {{ event.price }} / persona
               </b-list-group-item>
-              <b-list-group-item
-                class="d-flex justify-content-between align-content-center"
-              >
-                <p class="pt-2 eventdetails__text">Personas</p>
-                <div class="pt-2 align-content-center">
-                  <b-button
-                    variant="outline-dark"
-                    class="eventdetails__card-buttons"
-                  >
-                    <p>-</p>
-                  </b-button>
-                  <p class="d-inline mx-2 eventdetails__text">2</p>
-                  <b-button
-                    variant="outline-dark"
-                    class="eventdetails__card-buttons"
-                    >+
-                  </b-button>
-                </div></b-list-group-item
-              >
               <b-list-group-item>
                 <b-row>
                   <b-col class="col justify-content-start">
@@ -172,10 +154,26 @@ export default {
   name: "EventDetailsView",
   props: ["id"],
   data: () => ({
+    review: "",
     reservaCreada: false,
+    userReviewed: true,
   }),
   methods: {
     ...mapActions("events", ["addEvent"]),
+    async addReview() {
+      console.log(this.event.reviews);
+      let data = {
+        name: this.user.name,
+        lastName: this.user.lastName,
+        avatar: this.user.avatar,
+        review: this.review,
+      };
+      this.event.reviews.push(data);
+      const ref = doc(db, "events", this.id);
+      await setDoc(ref, { reviews: this.event.reviews }, { merge: true });
+      console.log(this.event.reviews);
+      this.userReviewed = false;
+    },
     async createBooking() {
       this.event.reserva.push(this.user.email);
       const ref = doc(db, "events", this.id);
