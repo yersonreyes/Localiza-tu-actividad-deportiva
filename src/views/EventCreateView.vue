@@ -362,6 +362,7 @@ export default {
           category: this.event.category,
           score: "-",
           reserva: [],
+          reviews: [],
           userName: this.user.name,
           userLastName: this.user.lastName,
           userEmail: this.user.email,
