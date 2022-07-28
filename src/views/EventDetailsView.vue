@@ -130,9 +130,16 @@
                   <b-col class="col d-flex justify-content-end">
                     <div class="my-2">
                       <b-button
+                        variant="danger"
+                        v-if="bookedUser"
+                        @click="deleteBooking"
+                        >Cancelar reserva</b-button
+                      >
+                      <b-button
                         variant="primary"
                         size="sm"
                         class="eventdetails__card-list-button"
+                        v-else
                         @click="createBooking"
                         >Reservar</b-button
                       >
@@ -157,7 +164,7 @@
 <script>
 import MapComponent from "@/components/MapComponent.vue";
 import { mapGetters, mapActions, mapState } from "vuex";
-import { addDoc, collection } from "firebase/firestore/lite";
+import { setDoc, doc } from "firebase/firestore/lite";
 import { db } from "../main";
 import router from "@/router";
 export default {
@@ -165,41 +172,41 @@ export default {
   name: "EventDetailsView",
   props: ["id"],
   data: () => ({
-    bookings: [],
-    booking: {
-      name: "",
-      desc: "",
-      price: "",
-      priceInclude: "",
-      cupos: "",
-      date: "",
-      address: "",
-      comun: "",
-      city: "",
-      region: "",
-      category: "",
-      img: "",
-      email: "",
-    },
+    reservaCreada: false,
   }),
   methods: {
     ...mapActions("events", ["addEvent"]),
     async createBooking() {
-      await addDoc(collection(db, "bookings"), {
-        name: this.event.name,
-        desc: this.event.desc,
-        img: this.event.img,
-        price: this.event.price,
-        cupos: this.event.cupos,
-        address: this.event.address,
-        city: this.event.city,
-        comun: this.event.comun,
-        region: this.event.region,
-        category: this.event.category,
-        email: this.user.email,
-        score: "-",
-      });
+      this.event.reserva.push(this.user.email);
+      const ref = doc(db, "events", this.id);
+      await setDoc(
+        ref,
+        {
+          reserva: this.event.reserva,
+        },
+        { merge: true }
+      );
       router.push("/");
+    },
+    async deleteBooking() {
+      this.reservaCreada = this.event.reserva.filter(
+        (reservaUser) => reservaUser !== this.user.email
+      );
+      const ref = doc(db, "events", this.id);
+      await setDoc(
+        ref,
+        {
+          reserva: this.reservaCreada,
+        },
+        { merge: true }
+      );
+      router.push("/");
+    },
+    filtrarReserva() {
+      this.reservaCreada = this.event.reserva.filter(
+        (reservaUser) => reservaUser === this.user.email
+      );
+      console.log(this.reservaCreada);
     },
   },
   computed: {
@@ -209,6 +216,14 @@ export default {
       return this.getEventById(id);
     },
     ...mapState("session", ["user"]),
+    bookedUser() {
+      return (
+        this.event &&
+        !!this.event.reserva.find(
+          (reservaUser) => reservaUser === this.user.email
+        )
+      );
+    },
   },
 };
 </script>
