@@ -6,6 +6,7 @@ import RegisterView from "../views/RegisterView.vue";
 import EventDetailsView from "../views/EventDetailsView.vue";
 import EventCreateView from "../views/EventCreateView.vue";
 import EventEditView from "../views/EventEditView.vue";
+import AdminEventsView from "../views/AdminEventsView.vue";
 import Store from "@/store/";
 
 Vue.use(VueRouter);
@@ -72,6 +73,14 @@ const routes = [
     component: EventDetailsView,
     meta: {
       accessLevel: "public",
+    },
+  },
+  {
+    path: "/admin",
+    name: "Administrator",
+    component: AdminEventsView,
+    meta: {
+      accessLevel: "private",
     },
   },
   // {

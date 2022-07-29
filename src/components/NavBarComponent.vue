@@ -24,10 +24,10 @@
           <b-navbar-nav>
             <div v-show="!activeLogin" class="nav-button-container">
               <b-button @click="pushLogin" variant="outline-primary"
-                >Sign in</b-button
+                >Iniciar sesión</b-button
               >
               <b-button @click="pushRegister" variant="primary"
-                >Sign up</b-button
+                >Registrar</b-button
               >
             </div>
 
@@ -40,7 +40,7 @@
               </template>
               <b-dropdown-item @click="pushProfile">
                 <b-icon icon="person-fill" aria-hidden="true"></b-icon>
-                Profile</b-dropdown-item
+                Mis eventos</b-dropdown-item
               >
               <b-dropdown-item @click="pushEvent">
                 <b-icon icon="plus-lg" aria-hidden="true"></b-icon>
@@ -48,7 +48,7 @@
               >
               <b-dropdown-item @click="closeSession">
                 <b-icon icon="door-closed-fill" aria-hidden="true"></b-icon>
-                Sign Out</b-dropdown-item
+                Cerrar sesión</b-dropdown-item
               >
             </b-nav-item-dropdown>
           </b-navbar-nav>
@@ -69,22 +69,18 @@ export default {
     pushLogin() {
       this.$router.push(`/login`);
     },
-
     pushRegister() {
       this.$router.push(`/register`);
     },
-
     pushHome() {
       this.$router.push(`/`);
     },
-
     pushEvent() {
       this.$router.push(`/event`);
     },
     pushProfile() {
-      this.$router.push(`/profile`);
+      this.$router.push(`/admin`);
     },
-
     verificateAvatar() {
       return this.user.avatar
         ? this.user.avatar
