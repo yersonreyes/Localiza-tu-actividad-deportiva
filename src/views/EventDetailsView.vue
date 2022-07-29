@@ -57,10 +57,8 @@
             <hr class="eventdetails__separator" />
           </div>
           <div>
-            <h5 class="eventdetails__title my-3">Cupos disponibles</h5>
-            <p class="eventdetails__text my-3">
-              {{ event.cupos }} disponible/s
-            </p>
+            <h5 class="eventdetails__title my-3">Cupos Totales</h5>
+            <p class="eventdetails__text my-3">{{ event.cupos }} cupos.</p>
             <hr class="eventdetails__separator" />
           </div>
           <div>
@@ -116,8 +114,13 @@
                 Precio {{ event.price }} / persona
               </b-list-group-item>
               <b-list-group-item class="eventdetails__text">
-                Quedan {{ this.event.cupos - this.event.reserva.length }} cupos
-                restantes
+                Quedan
+                <span style="color: green"
+                  >{{
+                    this.event.cupos - this.event.reserva.length
+                  }}
+                  cupos </span
+                >restantes
               </b-list-group-item>
               <b-list-group-item>
                 <b-row>
