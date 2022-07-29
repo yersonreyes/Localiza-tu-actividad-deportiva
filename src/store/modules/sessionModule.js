@@ -123,13 +123,13 @@ export const sessionModule = {
             email: credentials.email,
             name: credentials.name,
             lastName: credentials.lastName,
-            avatar: "",
+            avatar: credentials.avatar,
           });
           commit("SET_USER", {
             email: credentials.email,
             name: credentials.name,
             lastName: credentials.lastName,
-            avatar: "",
+            avatar: credentials.avatar,
           });
           commit("SET_ERROR_REGISTER", null);
           Router.push("/");

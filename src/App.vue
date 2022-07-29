@@ -2,9 +2,6 @@
   <div id="app">
     <NavBarComponent />
     <router-view class="container-margin" />
-    <footer>
-      <FooterComponent />
-    </footer>
   </div>
 </template>
 

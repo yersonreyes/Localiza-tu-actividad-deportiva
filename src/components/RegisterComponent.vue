@@ -7,6 +7,27 @@
     </p>
     <hr />
     <b-form class="login-form-container" @submit="onSubmit">
+      <div class="d-flex align-items-center justify-content-right">
+        <div class="img-container mx-2">
+          <b-img
+            v-if="selectedImg"
+            :src="selectedImg"
+            fluid
+            class="registercomponent__preview-img my-3"
+          />
+        </div>
+        <div>
+          <label class="btn btn-primary img-label" for="img-input">
+            Cargar foto
+          </label>
+          <input
+            id="img-input"
+            required
+            type="file"
+            @change="selectImg($event)"
+          />
+        </div>
+      </div>
       <b-form-group
         id="input-group-1"
         label="Correo electronico"
@@ -78,6 +99,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import { storageRef } from "@/main.js";
 export default {
   data() {
     return {
@@ -87,8 +109,10 @@ export default {
         email: "",
         password: "",
         password2: "",
+        avatar: "",
       },
       passwordValidator: false,
+      selectedImg: "",
     };
   },
   methods: {
@@ -102,6 +126,28 @@ export default {
         await this.registerUser(this.form);
         this.passwordValidator = false;
       }
+    },
+    async selectImg(event) {
+      const typeImg = event.target.files[0].type;
+      if (typeImg === "image/jpeg" || typeImg === "image/png") {
+        this.img = event.target.files[0];
+        this.error = null;
+      } else {
+        this.error = "Archivo no válido";
+        this.img = null;
+        return;
+      }
+      const reader = new FileReader();
+      reader.readAsDataURL(this.img);
+      reader.onload = (e) => {
+        this.selectedImg = e.target.result;
+      };
+      await storageRef.child("avatars").child(this.img.name).put(this.img);
+      const urlImg = await storageRef
+        .child("avatars")
+        .child(this.img.name)
+        .getDownloadURL();
+      this.form.avatar = urlImg;
     },
   },
   computed: {
@@ -175,6 +221,25 @@ export default {
   /* or 143% */
   text-align: center;
   /* Neutral / Gray 50 */
+}
+.img-container {
+  overflow: hidden;
+  display: inline-flex;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  position: relative;
+  flex-direction: column;
+  position: relative;
+  border-radius: 50%;
+  background-color: #e2e8f0;
+}
+.img-label {
+  display: inline-flex;
+}
+
+#img-input {
+  display: none;
 }
 
 hr {
