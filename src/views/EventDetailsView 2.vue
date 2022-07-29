@@ -5,20 +5,12 @@
       :style="{ backgroundImage: `url(${event.img})` }"
     >
       <b-row>
-        <b-col class="col background-gradient">
+        <b-col class="col">
           <!-- imagen en tamaño escritorio -->
           <b-container class="eventdetails__hero-section-wrapper">
             <b-container class="eventdetails__hero-section-info-wrapper"
               ><b-card-title class="eventdetails__hero-section-info-title">
                 {{ event.name }}
-                <b-button
-                  pill
-                  variant="outline-light"
-                  v-if="event.userEmail == user.email"
-                  @click="pushEventEdit()"
-                >
-                  <mdicon name="pencil" size="24" class="categoryButtons-icon"
-                /></b-button>
               </b-card-title>
               <b-card-title class="eventdetails__hero-section-info-subtitle">
                 {{ event.address }}, {{ event.city }}, {{ event.region }}
@@ -65,8 +57,10 @@
             <hr class="eventdetails__separator" />
           </div>
           <div>
-            <h5 class="eventdetails__title my-3">Cupos Totales</h5>
-            <p class="eventdetails__text my-3">{{ event.cupos }} cupos.</p>
+            <h5 class="eventdetails__title my-3">Cupos disponibles</h5>
+            <p class="eventdetails__text my-3">
+              {{ event.cupos }} disponible/s
+            </p>
             <hr class="eventdetails__separator" />
           </div>
           <div>
@@ -95,21 +89,19 @@
               <p class="eventdetails__review-text mb-3">{{ review.review }}</p>
             </div>
             <b-form @submit.prevent="addReview()" v-if="userReviewed">
-              <div v-if="user.email != ''">
-                <b-form-textarea
-                  id="textarea"
-                  required
-                  v-model="review"
-                  placeholder="Agrega un nuevo comentario..."
-                  rows="3"
-                  max-rows="6"
-                  class="mt-3"
-                ></b-form-textarea>
-                <div class="d-flex justify-content-end">
-                  <b-button type="submit" variant="primary" class="my-3"
-                    >Enviar comentario</b-button
-                  >
-                </div>
+              <b-form-textarea
+                id="textarea"
+                required
+                v-model="review"
+                placeholder="Agrega un nuevo comentario..."
+                rows="3"
+                max-rows="6"
+                class="mt-3"
+              ></b-form-textarea>
+              <div class="d-flex justify-content-end">
+                <b-button type="submit" variant="primary" class="my-3"
+                  >Enviar comentario</b-button
+                >
               </div>
             </b-form>
           </div>
@@ -120,15 +112,6 @@
             <b-list-group flush>
               <b-list-group-item class="eventdetails__text">
                 Precio {{ event.price }} / persona
-              </b-list-group-item>
-              <b-list-group-item class="eventdetails__text">
-                Quedan
-                <span style="color: green"
-                  >{{
-                    this.event.cupos - this.event.reserva.length
-                  }}
-                  cupos </span
-                >restantes
               </b-list-group-item>
               <b-list-group-item>
                 <b-row>
@@ -150,26 +133,6 @@
                         @click="deleteBooking"
                         >Cancelar reserva</b-button
                       >
-                      <b-button
-                        variant="primary"
-                        size="sm"
-                        class="eventdetails__card-list-button"
-                        v-else-if="
-                          this.event.cupos <= this.event.reserva.length
-                        "
-                        disabled
-                        >No quedan cupos
-                      </b-button>
-
-                      <b-button
-                        variant="primary"
-                        size="sm"
-                        class="eventdetails__card-list-button"
-                        v-else-if="user.email == ''"
-                        @click="pushLogin"
-                        >Iniciar sesion</b-button
-                      >
-
                       <b-button
                         variant="primary"
                         size="sm"
@@ -259,13 +222,6 @@ export default {
       );
       console.log(this.reservaCreada);
     },
-
-    pushLogin() {
-      this.$router.push(`/login`);
-    },
-    pushEventEdit() {
-      this.$router.push(`/eventedit/${this.id}`);
-    },
   },
   computed: {
     ...mapGetters("events", ["getEventById"]),
@@ -334,23 +290,19 @@ export default {
   position: relative;
 }
 
-.background-gradient {
-  background: linear-gradient(
-    0deg,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(249, 249, 249, 0) 100%
-  );
-  border-radius: 5px;
-}
-
 .eventdetails__info-wrapper {
   padding: 35px;
 }
 .eventdetails__hero-section-info-wrapper {
   position: absolute;
   width: 1440px;
-  top: 289px;
+  top: 302px;
   left: -12px;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(249, 249, 249, 0) 100%
+  );
   border-radius: 5px;
 }
 .eventdetails__hero-section-info-title {
