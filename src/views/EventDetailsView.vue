@@ -34,7 +34,7 @@
     <b-container class="eventdetails__info-wrapper">
       <b-row>
         <!-- Información de evento -->
-        <b-col sm="12" md="12" lg="9" xl="9">
+        <b-col sm="12" md="12" lg="8" xl="8">
           <div class="d-block d-sm-block d-md-none">
             <h5 class="eventdetails__title mb-3">{{ event.name }}</h5>
             <p class="eventdetails__text">
@@ -75,6 +75,19 @@
           </div>
           <div>
             <h5 class="eventdetails__title my-3">Comentarios</h5>
+            <div v-for="(review, index) in event.reviews" :key="index">
+              <div>
+                <img
+                  :src="review.avatar"
+                  alt=""
+                  class="eventdetails__review-avatar d-inline"
+                />
+                <p class="d-inline mx-2 eventdetails__review-user">
+                  {{ review.name }} {{ review.lastName }}
+                </p>
+              </div>
+              <p class="eventdetails__review-text mb-3">{{ review.review }}</p>
+            </div>
             <b-form @submit.prevent="addReview()" v-if="userReviewed">
               <b-form-textarea
                 id="textarea"
@@ -83,6 +96,7 @@
                 placeholder="Agrega un nuevo comentario..."
                 rows="3"
                 max-rows="6"
+                class="mt-3"
               ></b-form-textarea>
               <div class="d-flex justify-content-end">
                 <b-button type="submit" variant="primary" class="my-3"
@@ -93,8 +107,8 @@
           </div>
         </b-col>
         <!-- Price card -->
-        <b-col sm="12" md="12" lg="3" xl="3">
-          <b-card class="my-3">
+        <b-col sm="12" md="12" lg="4" xl="4">
+          <b-card class="my-3 shadow-sm p-3 mb-5 bg-white rounded border-0">
             <b-list-group flush>
               <b-list-group-item class="eventdetails__text">
                 Precio {{ event.price }} / persona
@@ -113,6 +127,8 @@
                     <div class="my-2">
                       <b-button
                         variant="danger"
+                        size="sm"
+                        class="eventdetails__card-list-button"
                         v-if="bookedUser"
                         @click="deleteBooking"
                         >Cancelar reserva</b-button
@@ -132,9 +148,10 @@
               <b-list-group-item
                 class="d-flex justify-content-between eventdetails__text"
               >
-                <p class="pt-2">Total</p>
-                <p class="pt-2">$4.000</p></b-list-group-item
-              >
+                <p class="pt-2 eventdetails__card-list-bottom-text">
+                  *Las clases se pagan en el lugar donde se realizan.
+                </p>
+              </b-list-group-item>
             </b-list-group>
           </b-card>
         </b-col>
@@ -184,7 +201,6 @@ export default {
         },
         { merge: true }
       );
-      router.push("/");
     },
     async deleteBooking() {
       this.reservaCreada = this.event.reserva.filter(
@@ -198,7 +214,7 @@ export default {
         },
         { merge: true }
       );
-      router.push("/");
+      router.go();
     },
     filtrarReserva() {
       this.reservaCreada = this.event.reserva.filter(
@@ -246,6 +262,9 @@ export default {
   list-style: none;
   font-size: 12px;
   font-weight: 400;
+}
+.eventdetails__card-list-bottom-text {
+  font-size: 12px;
 }
 .eventdetails__card-buttons {
   width: 24px;
@@ -300,5 +319,20 @@ export default {
   object-fit: cover;
   width: 100%;
   max-height: 400px;
+}
+.eventdetails__review-avatar {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+}
+.eventdetails__review-text {
+  margin-left: 35px;
+  margin-top: 3px;
+  font-weight: 400;
+  font-size: 14px;
+}
+.eventdetails__review-user {
+  font-size: 14px;
+  font-weight: 600;
 }
 </style>
