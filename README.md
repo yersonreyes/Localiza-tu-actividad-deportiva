@@ -37,4 +37,9 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ```
 Yerson Reyes - Joaquín Cruzat - Matías Stephens
 ```
+### Link video FitMapp
+```
+https://youtu.be/P3QiMyK97tg
+```
+
 
