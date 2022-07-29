@@ -89,19 +89,21 @@
               <p class="eventdetails__review-text mb-3">{{ review.review }}</p>
             </div>
             <b-form @submit.prevent="addReview()" v-if="userReviewed">
-              <b-form-textarea
-                id="textarea"
-                required
-                v-model="review"
-                placeholder="Agrega un nuevo comentario..."
-                rows="3"
-                max-rows="6"
-                class="mt-3"
-              ></b-form-textarea>
-              <div class="d-flex justify-content-end">
-                <b-button type="submit" variant="primary" class="my-3"
-                  >Enviar comentario</b-button
-                >
+              <div v-if="user.email != ''">
+                <b-form-textarea
+                  id="textarea"
+                  required
+                  v-model="review"
+                  placeholder="Agrega un nuevo comentario..."
+                  rows="3"
+                  max-rows="6"
+                  class="mt-3"
+                ></b-form-textarea>
+                <div class="d-flex justify-content-end">
+                  <b-button type="submit" variant="primary" class="my-3"
+                    >Enviar comentario</b-button
+                  >
+                </div>
               </div>
             </b-form>
           </div>
@@ -112,6 +114,10 @@
             <b-list-group flush>
               <b-list-group-item class="eventdetails__text">
                 Precio {{ event.price }} / persona
+              </b-list-group-item>
+              <b-list-group-item class="eventdetails__text">
+                Quedan {{ this.event.cupos - this.event.reserva.length }} cupos
+                restantes
               </b-list-group-item>
               <b-list-group-item>
                 <b-row>
@@ -133,6 +139,26 @@
                         @click="deleteBooking"
                         >Cancelar reserva</b-button
                       >
+                      <b-button
+                        variant="primary"
+                        size="sm"
+                        class="eventdetails__card-list-button"
+                        v-else-if="
+                          this.event.cupos <= this.event.reserva.length
+                        "
+                        disabled
+                        >No quedan cupos
+                      </b-button>
+
+                      <b-button
+                        variant="primary"
+                        size="sm"
+                        class="eventdetails__card-list-button"
+                        v-else-if="user.email == ''"
+                        @click="pushLogin"
+                        >Iniciar sesion</b-button
+                      >
+
                       <b-button
                         variant="primary"
                         size="sm"
@@ -221,6 +247,10 @@ export default {
         (reservaUser) => reservaUser === this.user.email
       );
       console.log(this.reservaCreada);
+    },
+
+    pushLogin() {
+      this.$router.push(`/login`);
     },
   },
   computed: {
