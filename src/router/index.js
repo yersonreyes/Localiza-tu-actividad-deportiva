@@ -5,6 +5,7 @@ import LoginView from "../views/LoginView.vue";
 import RegisterView from "../views/RegisterView.vue";
 import EventDetailsView from "../views/EventDetailsView.vue";
 import EventCreateView from "../views/EventCreateView.vue";
+import EventEditView from "../views/EventEditView.vue";
 import Store from "@/store/";
 
 Vue.use(VueRouter);
@@ -53,6 +54,15 @@ const routes = [
     component: EventCreateView,
     meta: {
       accessLevel: "private",
+    },
+  },
+  {
+    path: "/eventedit/:id",
+    name: "eventedit",
+    props: true,
+    component: EventEditView,
+    meta: {
+      accessLevel: "public",
     },
   },
   {
