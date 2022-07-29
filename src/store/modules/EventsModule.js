@@ -45,5 +45,11 @@ export const eventsModule = {
       const event = state.events.find((item) => item.id === id);
       return event;
     },
+    getEventByEmail: (state) => (email) => {
+      const eventsList = state.events.filter(
+        (item) => item.userEmail === email
+      );
+      return eventsList;
+    },
   },
 };
