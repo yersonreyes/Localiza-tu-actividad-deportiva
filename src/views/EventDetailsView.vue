@@ -191,6 +191,26 @@
               </b-list-group-item>
             </b-list-group>
           </b-card>
+          <!-- //PERSONAS INSCRITAS -->
+          <b-card
+            v-if="event.userEmail == user.email"
+            class="my-3 shadow-sm p-3 mb-5 bg-white rounded border-0"
+          >
+            <b-list-group flush>
+              <b-list-group-item class="eventdetails__text">
+                Personas inscritas
+              </b-list-group-item>
+              <b-list-group-item
+                v-for="reserva in event.reserva"
+                :key="reserva"
+                class="d-flex justify-content-between eventdetails__text"
+              >
+                <p class="pt-2 eventdetails__card-list-bottom-text">
+                  <span>{{ reserva }}</span>
+                </p>
+              </b-list-group-item>
+            </b-list-group>
+          </b-card>
         </b-col>
       </b-row>
     </b-container>

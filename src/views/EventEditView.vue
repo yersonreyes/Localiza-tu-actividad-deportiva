@@ -181,6 +181,9 @@
                 variant="outline-primary"
                 >Cancelar</b-button
               >
+              <b-button @click="eventDelete" type="button" variant="danger"
+                >Eliminar</b-button
+              >
               <b-button type="submit" variant="primary">Guardar</b-button>
             </div>
             <div class="button-container button-top">
@@ -202,7 +205,7 @@
 <script>
 import { mapState, mapActions, mapGetters } from "vuex";
 import { db, storageRef } from "../main";
-import { doc, setDoc } from "firebase/firestore/lite";
+import { doc, setDoc, deleteDoc } from "firebase/firestore/lite";
 import router from "@/router";
 export default {
   data: () => ({
@@ -385,6 +388,11 @@ export default {
     },
 
     pushHome() {
+      router.push("/");
+    },
+
+    async eventDelete() {
+      await deleteDoc(doc(db, "events", this.$route.params.id));
       router.push("/");
     },
   },
