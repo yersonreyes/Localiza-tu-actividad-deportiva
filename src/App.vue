@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <NavBarComponent />
-    <router-view class="container-margin" />
+    <transition name="fade" mode="out-in">
+      <router-view class="container-margin" />
+    </transition>
   </div>
 </template>
 
