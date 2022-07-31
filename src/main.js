@@ -17,6 +17,8 @@ import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 
+//animaciones del router
+import "./assets/styles/styles.scss";
 //Mapboxgl
 import mapboxgl from "mapbox-gl";
 mapboxgl.accessToken =
