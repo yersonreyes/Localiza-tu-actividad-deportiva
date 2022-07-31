@@ -2,7 +2,9 @@
   <div>
     <div v-if="events.length === 0" class="container container-admin">
       <h1>No tienes eventos creados</h1>
-      <button class="btn btn-primary">Crea tu primer evento</button>
+      <router-link class="btn btn-primary" to="/event"
+        >Crea tu primer evento</router-link
+      >
     </div>
     <!-- Tarjetas con los eventos -->
     <div v-else>

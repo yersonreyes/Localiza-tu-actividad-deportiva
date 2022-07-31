@@ -2,8 +2,8 @@
   <div class="container-login">
     <h2 class="text-center">Registro</h2>
     <p class="text-center subtitle">
-      PRTAL es Amet minim mollit non deserunt ullamco est sit aliqua dolor do
-      amet sint. Velit duis enim velit mollit.
+      ¡Que gusto verte! Que tengas una excelente sesión deportiva el día de hoy
+      ¡Vamos con todo!
     </p>
     <hr />
     <b-form class="login-form-container" @submit="onSubmit">
