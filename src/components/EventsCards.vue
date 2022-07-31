@@ -46,7 +46,7 @@ export default {
   props: ["event"],
 };
 </script>
-<style>
+<style scoped>
 .eventscards__title {
   font-family: "Inter" !important;
   font-style: normal;
