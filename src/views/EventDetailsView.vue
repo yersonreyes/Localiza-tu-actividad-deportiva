@@ -23,10 +23,8 @@
               <b-card-title class="eventdetails__hero-section-info-subtitle">
                 {{ event.address }}, {{ event.city }}, {{ event.region }}
               </b-card-title>
-              <p class="eventdetails__hero-section-info">
-                {{ event.creator }}
-              </p></b-container
-            >
+              <p class="eventdetails__hero-section-info"></p
+            ></b-container>
           </b-container>
           <!-- imagen en tamaño mobile -->
         </b-col>
@@ -48,15 +46,6 @@
             <p class="eventdetails__text">
               {{ event.address }}, {{ event.comun }}, {{ event.city }}
             </p>
-            <div class="d-flex justify-content-between">
-              <p class="eventdetails__text">{{ event.creator }}</p>
-              <div>
-                <b-icon icon="star-fill" class="d-inline"></b-icon>
-                <p class="eventdetails__text d-inline">
-                  {{ event.score }}
-                </p>
-              </div>
-            </div>
             <hr class="eventdetails__separator" />
           </div>
           <div>

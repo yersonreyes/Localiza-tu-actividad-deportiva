@@ -285,7 +285,7 @@ export default {
         text: "Seleccione una opción",
       },
       {
-        value: "soccer",
+        value: "Football",
         text: "Football",
       },
       {
@@ -294,7 +294,7 @@ export default {
       },
       {
         value: "Tennis",
-        text: "Tennis",
+        text: "Tenis",
       },
       {
         value: "Crossfit",

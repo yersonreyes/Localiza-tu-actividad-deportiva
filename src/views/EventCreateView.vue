@@ -168,7 +168,7 @@
 
             <b-form-group
               id="input-group-10"
-              label="Categoria"
+              label="Categoría"
               label-for="input-10"
               class="event-Text width70"
             >
@@ -300,8 +300,8 @@ export default {
         text: "Seleccione una opción",
       },
       {
-        value: "soccer",
-        text: "Football",
+        value: "Football",
+        text: "Fútbol",
       },
       {
         value: "Trekking",
@@ -309,7 +309,7 @@ export default {
       },
       {
         value: "Tennis",
-        text: "Tennis",
+        text: "Tenis",
       },
       {
         value: "Crossfit",
@@ -360,7 +360,6 @@ export default {
           comun: this.event.comun,
           region: this.event.region,
           category: this.event.category,
-          score: "-",
           reserva: [],
           reviews: [],
           userName: this.user.name,

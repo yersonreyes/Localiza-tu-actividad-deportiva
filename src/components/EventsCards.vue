@@ -14,14 +14,6 @@
                 event.name
               }}</b-card-title>
             </div>
-            <b-card-title class="eventscards__card-title__score"
-              ><b-icon
-                class="eventscards__card-title__score-icon"
-                icon="star-fill"
-                style="color: #0f172a"
-              ></b-icon
-              >{{ event.score }}</b-card-title
-            >
           </div>
           <b-card-title class="d-flex text-left eventscards__price">
             {{ event.price }}
