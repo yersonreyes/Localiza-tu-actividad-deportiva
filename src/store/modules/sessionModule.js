@@ -3,6 +3,7 @@ import {
   signOut,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore/lite";
 import { db } from "../../main";
@@ -93,10 +94,17 @@ export const sessionModule = {
       }
     },
 
-    async signOut() {
+    async signOut({ commit }) {
       const auth = getAuth();
       await signOut(auth).then(() => {
         Router.push("/login");
+      });
+
+      commit("SET_USER", {
+        avatar: "",
+        name: "",
+        lastName: "",
+        email: "",
       });
     },
 
@@ -137,6 +145,22 @@ export const sessionModule = {
         .catch((error) => {
           var errorMessage = error.message;
           commit("SET_ERROR_REGISTER", errorMessage);
+        });
+    },
+
+    async sendPasswordResetEmail({ commit }, email) {
+      commit("SET_LOADING", true);
+      const auth = getAuth();
+      sendPasswordResetEmail(auth, email)
+        .then(() => {
+          // Password reset email sent!
+          // ..
+          console.log("contraseña reiniciada");
+          commit("SET_LOADING", false);
+        })
+        .catch((error) => {
+          console.log(error);
+          commit("SET_LOADING", false);
         });
     },
   },

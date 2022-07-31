@@ -1,8 +1,11 @@
 <template>
   <div>
+    <div v-if="events.length === 0" class="container container-admin">
+      <h1>No tienes eventos creados</h1>
+      <button class="btn btn-primary">Crea tu primer evento</button>
+    </div>
     <!-- Tarjetas con los eventos -->
-    <div>
-      <h1></h1>
+    <div v-else>
       <div class="container fluid">
         <h1 class="eventscards-categorytitle my-5">Mis eventos</h1>
 
@@ -39,5 +42,21 @@ export default {
 <style scoped>
 * {
   font-family: "Inter";
+}
+
+.container-admin {
+  padding-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.container-admin h1 {
+  text-align: center;
+}
+
+.container-admin button {
+  text-align: center;
+  max-width: 300px;
 }
 </style>

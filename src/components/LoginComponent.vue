@@ -21,7 +21,12 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-2" label="Contraseña" label-for="input-2">
+      <b-form-group
+        v-if="!change"
+        id="input-group-2"
+        label="Contraseña"
+        label-for="input-2"
+      >
         <b-form-input
           id="input-2"
           v-model="form.password"
@@ -30,14 +35,30 @@
           required
         ></b-form-input>
       </b-form-group>
-      <router-link class="changePassword" to="/"
-        >¿Olvidaste tu contraseña?</router-link
+      <p @click="changelogin" v-if="!change" class="changePassword">
+        ¿Olvidaste tu contraseña?
+      </p>
+      <p @click="changelogin" v-if="change" class="changePassword">
+        Iniciar sesión
+      </p>
+      <b-button
+        @click="resetPassword"
+        :disabled="message"
+        type="button"
+        v-if="change"
+        variant="primary"
+        >Reiniciar contraseña</b-button
       >
-      <b-button type="submit" variant="primary">Ingresar</b-button>
+      <b-button type="submit" v-if="!change" variant="primary"
+        >Ingresar</b-button
+      >
     </b-form>
     <b-alert class="mt-3" v-if="activeError" show variant="danger"
       >Email o contraseña no son validos</b-alert
     >
+    <b-alert class="mt-3" v-if="message" show variant="primary"
+      >Contraseña reiniciada con éxito, revisa tu Correo
+    </b-alert>
     <p class="register-p">
       ¿Aún no tienes cuenta?
       <router-link class="register" to="/register">Registrarse</router-link>
@@ -54,14 +75,31 @@ export default {
         email: "",
         password: "",
       },
+      change: false,
+      message: false,
     };
   },
   methods: {
-    ...mapActions("session", ["signInWithEmailAndPassword", "getUser"]),
+    ...mapActions("session", [
+      "signInWithEmailAndPassword",
+      "getUser",
+      "sendPasswordResetEmail",
+    ]),
     async onSubmit(event) {
       event.preventDefault();
       await this.signInWithEmailAndPassword(this.form);
       await this.getUser();
+    },
+    async resetPassword() {
+      if (this.form.email == "") {
+        return;
+      }
+      this.sendPasswordResetEmail(this.form.email);
+      this.message = true;
+    },
+    changelogin() {
+      this.change = !this.change;
+      this.message = false;
     },
   },
   computed: {
@@ -97,6 +135,9 @@ export default {
 }
 
 .changePassword {
+  cursor: pointer;
+  margin: 0;
+  color: #1d4ed8;
   text-decoration: none;
   font-family: "Inter";
   font-style: normal;
