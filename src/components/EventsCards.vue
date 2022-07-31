@@ -14,14 +14,6 @@
                 event.name
               }}</b-card-title>
             </div>
-            <b-card-title class="eventscards__card-title__score"
-              ><b-icon
-                class="eventscards__card-title__score-icon"
-                icon="star-fill"
-                style="color: #0f172a"
-              ></b-icon
-              >{{ event.score }}</b-card-title
-            >
           </div>
           <b-card-title class="d-flex text-left eventscards__price">
             {{ event.price }}
@@ -56,11 +48,11 @@ export default {
 </script>
 <style scoped>
 .eventscards__title {
-  font-family: "Inter";
+  font-family: "Inter" !important;
   font-style: normal;
   font-weight: 600;
   font-size: 16px;
-  max-width: 200px;
+  max-width: 250px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;

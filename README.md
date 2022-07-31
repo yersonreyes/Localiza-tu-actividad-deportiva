@@ -36,4 +36,6 @@ Podemos definir tres tipos de usuarios:
 
 - Vue 2
 - Firebase
-- Mapboox
+- Mapbox
+- bootstrap-vue
+- vueperslides

@@ -168,7 +168,7 @@
 
             <b-form-group
               id="input-group-10"
-              label="Categoria"
+              label="Categoría"
               label-for="input-10"
               class="event-Text width70"
             >
@@ -201,6 +201,7 @@
         </div>
       </div>
     </b-container>
+    <LoadingComponent :loading="loading" />
   </div>
 </template>
 
@@ -208,10 +209,13 @@
 import { mapState, mapActions } from "vuex";
 import { db, storageRef } from "../main";
 import { addDoc, collection } from "firebase/firestore/lite";
+import LoadingComponent from "@/components/LoadingComponent.vue";
 import router from "@/router";
 export default {
+  components: { LoadingComponent },
   data: () => ({
     events: [],
+    loading: false,
     event: {
       name: "",
       desc: "",
@@ -300,8 +304,8 @@ export default {
         text: "Seleccione una opción",
       },
       {
-        value: "soccer",
-        text: "Football",
+        value: "Football",
+        text: "Fútbol",
       },
       {
         value: "Trekking",
@@ -309,7 +313,7 @@ export default {
       },
       {
         value: "Tennis",
-        text: "Tennis",
+        text: "Tenis",
       },
       {
         value: "Crossfit",
@@ -342,6 +346,7 @@ export default {
     ...mapActions("events", ["addEvent"]),
     async CreateEvent() {
       try {
+        this.loading = true;
         await storageRef.child("images").child(this.img.name).put(this.img);
         const urlImg = await storageRef
           .child("images")
@@ -360,7 +365,6 @@ export default {
           comun: this.event.comun,
           region: this.event.region,
           category: this.event.category,
-          score: "-",
           reserva: [],
           reviews: [],
           userName: this.user.name,
@@ -373,6 +377,7 @@ export default {
       } catch (error) {
         console.log(error);
       } finally {
+        this.loading = false;
         router.push("/");
       }
     },
