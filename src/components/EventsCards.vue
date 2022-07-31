@@ -56,11 +56,11 @@ export default {
 </script>
 <style>
 .eventscards__title {
-  font-family: "Inter";
+  font-family: "Inter" !important;
   font-style: normal;
   font-weight: 600;
   font-size: 16px;
-  max-width: 200px;
+  max-width: 250px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;

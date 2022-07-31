@@ -199,6 +199,7 @@
         </div>
       </div>
     </b-container>
+    <LoadingComponent :loading="loading" />
   </div>
 </template>
 
@@ -206,10 +207,13 @@
 import { mapState, mapActions, mapGetters } from "vuex";
 import { db, storageRef } from "../main";
 import { doc, setDoc, deleteDoc } from "firebase/firestore/lite";
+import LoadingComponent from "@/components/LoadingComponent.vue";
 import router from "@/router";
 export default {
+  components: { LoadingComponent },
   data: () => ({
     events: [],
+    loading: false,
     img: "",
     selectedImg: false,
     options: [
@@ -326,6 +330,7 @@ export default {
   methods: {
     ...mapActions("events", ["addEvent"]),
     async CreateEvent() {
+      this.loading = true;
       try {
         let urlImg;
         if (this.selectedImg) {
@@ -366,6 +371,7 @@ export default {
       } catch (error) {
         console.log(error);
       } finally {
+        this.loading = false;
         router.push("/");
       }
     },

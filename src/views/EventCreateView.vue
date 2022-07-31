@@ -201,6 +201,7 @@
         </div>
       </div>
     </b-container>
+    <LoadingComponent :loading="loading" />
   </div>
 </template>
 
@@ -208,10 +209,13 @@
 import { mapState, mapActions } from "vuex";
 import { db, storageRef } from "../main";
 import { addDoc, collection } from "firebase/firestore/lite";
+import LoadingComponent from "@/components/LoadingComponent.vue";
 import router from "@/router";
 export default {
+  components: { LoadingComponent },
   data: () => ({
     events: [],
+    loading: false,
     event: {
       name: "",
       desc: "",
@@ -342,6 +346,7 @@ export default {
     ...mapActions("events", ["addEvent"]),
     async CreateEvent() {
       try {
+        this.loading = true;
         await storageRef.child("images").child(this.img.name).put(this.img);
         const urlImg = await storageRef
           .child("images")
@@ -373,6 +378,7 @@ export default {
       } catch (error) {
         console.log(error);
       } finally {
+        this.loading = false;
         router.push("/");
       }
     },
