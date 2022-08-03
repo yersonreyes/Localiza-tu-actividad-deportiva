@@ -34,9 +34,11 @@
             </b-button>
           </div>
         </div>
-        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-3 gx-4">
+        <div
+          class="row row-cols-1 row-cols-md-3 row-cols-lg-3 gx-4 cards-container"
+        >
           <div
-            class="col col-xl-3 col-lg-4 col-md-6 col-sm-12 eventsCards-cards"
+            class="col col-xl-3 col-lg-4 col-md-6 col-sm-12"
             v-for="(event, index) in filteredByCategory"
             :key="index"
           >

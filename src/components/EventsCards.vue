@@ -1,32 +1,18 @@
 <template>
-  <div>
-    <router-link
-      style="text-decoration: none; color: inherit"
-      :to="`/events/${event.id}`"
-    >
-      <b-card no-body class="mb-5">
-        <b-img :src="event.img" img-top class="eventcards__img" />
+  <div @click="pushEvent" class="eventscard__container">
+    <img :src="event.img" class="eventcards__img" />
 
-        <b-card-body>
-          <div class="d-flex justify-content-between">
-            <div>
-              <b-card-title class="eventscards__title">{{
-                event.name
-              }}</b-card-title>
-            </div>
-          </div>
-          <b-card-title class="d-flex text-left eventscards__price">
-            {{ event.price }}
-          </b-card-title>
-          <b-card-title class="d-flex text-left eventscards__place">
-            {{ event.address }}
-          </b-card-title>
-          <b-card-title class="d-flex text-left eventscards__place">
-            {{ event.comun }}, {{ event.city }}
-          </b-card-title>
-        </b-card-body>
-      </b-card>
-    </router-link>
+    <div class="eventscard__body">
+      <h4 class="eventscards__title">{{ event.name }}</h4>
+
+      <p class="eventscards__price">
+        {{ event.price }}
+      </p>
+      <p class="eventscards__place">
+        {{ event.address }}
+      </p>
+      <p class="eventscards__place">{{ event.comun }}, {{ event.city }}</p>
+    </div>
   </div>
 </template>
 
@@ -44,10 +30,31 @@ export default {
     };
   },
   props: ["event"],
+  methods: {
+    pushEvent() {
+      this.$router.push(`/events/${this.event.id}`);
+    },
+  },
 };
 </script>
-<style scoped>
+<style>
+.eventscard__container {
+  margin: 0 auto;
+  width: 100%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+}
+.eventscard__body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
 .eventscards__title {
+  margin: 0;
   font-family: "Inter" !important;
   font-style: normal;
   font-weight: 600;
@@ -57,17 +64,9 @@ export default {
   overflow: hidden;
   white-space: nowrap;
 }
-.eventscards__card-title__score {
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  margin-top: 2px;
-}
-.eventscards__card-title__score-icon {
-  margin-right: 5px;
-}
+
 .eventscards__price {
+  margin: 0;
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
@@ -75,13 +74,17 @@ export default {
   font-weight: bold;
 }
 .eventscards__place {
+  margin: 0;
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-size: 13px;
 }
 .eventcards__img {
+  margin: 0;
+  width: 100%;
   height: 200px;
+  object-fit: cover;
 }
 @media (max-width: 768px) {
   .eventcards__img {
@@ -99,3 +102,4 @@ export default {
   }
 }
 </style>
+
